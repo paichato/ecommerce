@@ -1,38 +1,44 @@
-import React, { useState } from 'react'
-import {Menu} from 'antd';
-import {MailOutlined, AppstoreOutlined,SettingOutlined} from '@ant-design/icons';
+import React, { useState } from "react";
+import { Menu } from "antd";
+import {
+  MailOutlined,
+  AppstoreOutlined,
+  SettingOutlined,
+  UserOutlined,
+  UserAddOutlined,
+  
+} from "@ant-design/icons";
 
-const {SubMenu}=Menu;
+const { SubMenu } = Menu;
 
 function Header() {
+  const [current, setCurrent] = useState("home");
 
-    const [current, setCurrent] = useState('home');
+  const handleClick = (e) => {
+      setCurrent(e.key);
+  };
 
-    const handleClick=()=>{
-
-    }
-
-    return (
-        <>
-            <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal">
-        <Menu.Item key="home" icon={<MailOutlined />}>
+  return (
+    <>
+      <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal">
+        <Menu.Item  key="home" icon={<AppstoreOutlined />}>
           Home
         </Menu.Item>
 
-        <Menu.Item key="app" disabled icon={<AppstoreOutlined />}>
-          Navigation Two
+        <Menu.Item key="login"  icon={<UserOutlined />} className="float-right">
+          Login
+        </Menu.Item>
+        <Menu.Item key="register"   icon={<UserAddOutlined />} className="float-right" >
+          Register
         </Menu.Item>
 
-        <SubMenu key="register" icon={<SettingOutlined />} title="Register">
-          
-            <Menu.Item key="setting:1">Option 1</Menu.Item>
-            <Menu.Item key="setting:2">Option 2</Menu.Item>
-        
-        </SubMenu>
-       
+        {/* <SubMenu key="account" icon={<SettingOutlined />} title="Account">
+          <Menu.Item key="setting:1">Option 1</Menu.Item>
+          <Menu.Item key="setting:2">Option 2</Menu.Item>
+        </SubMenu> */}
       </Menu>
-        </>
-    )
+    </>
+  );
 }
 
-export default Header
+export default Header;
