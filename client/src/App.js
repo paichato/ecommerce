@@ -4,6 +4,7 @@ import Header from './components/nav/Header';
 import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
 import Home from './pages/Home';
+require('dotenv').config()
 
 function App() {
   return (
