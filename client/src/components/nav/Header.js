@@ -8,6 +8,7 @@ import {
   UserAddOutlined,
   
 } from "@ant-design/icons";
+import 'mdb-react-ui-kit/dist/css/mdb.min.css'
 
 const { SubMenu } = Menu;
 
@@ -20,23 +21,26 @@ function Header() {
 
   return (
     <>
-      <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal">
-        <Menu.Item  key="home" icon={<AppstoreOutlined />}>
+   
+      <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal"  style={{display: 'block'}}  >
+        <Menu.Item  key="home" icon={<AppstoreOutlined />} className='' >
           Home
         </Menu.Item>
-
-        <Menu.Item key="login"  icon={<UserOutlined />} className="float-right">
-          Login
-        </Menu.Item>
-        <Menu.Item key="register"   icon={<UserAddOutlined />} className="float-right" >
-          Register
-        </Menu.Item>
-
-        {/* <SubMenu key="account" icon={<SettingOutlined />} title="Account">
+        <SubMenu key="account" icon={<SettingOutlined />} title="Account">
           <Menu.Item key="setting:1">Option 1</Menu.Item>
           <Menu.Item key="setting:2">Option 2</Menu.Item>
-        </SubMenu> */}
+        </SubMenu>
+        <Menu.Item key="register"   icon={<UserAddOutlined />}  className="float-right" style={{float:'right'}} >
+          Register
+        </Menu.Item>
+        <Menu.Item key="login"  icon={<UserOutlined />}  className="float-right" style={{float:'right'}}>
+          Login
+        </Menu.Item>
+        
+
+        
       </Menu>
+     
     </>
   );
 }
