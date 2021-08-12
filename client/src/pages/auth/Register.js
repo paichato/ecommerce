@@ -23,14 +23,18 @@ function Register() {
     return (
         <div className='container p-5'>
             <div className='row'>
-                <div className='col-md-6 offset-md-3' >
+                <div className='col-md '  >
+                <img resize='contain' width={'90%'} height={'90%'} src='reg.svg' alt='regImage' />
+                </div>
+            
+                <div className='col-md ' >
                     <h4>Register</h4>
                     <RegisterForm/>
                     {email && <p className='mt-3 form-text' >We will send an email to {email}</p>}
                 </div>
             </div>
 
-            <p>Register</p>
+           
         </div>
     )
 }
