@@ -8,9 +8,10 @@ import {
   UserAddOutlined,
   
 } from "@ant-design/icons";
-import 'mdb-react-ui-kit/dist/css/mdb.min.css'
+import 'mdb-react-ui-kit/dist/css/mdb.min.css';
+import {Link} from 'react-router-dom'
 
-const { SubMenu } = Menu;
+const { SubMenu, Item } = Menu;
 
 function Header() {
   const [current, setCurrent] = useState("home");
@@ -23,19 +24,24 @@ function Header() {
     <>
    
       <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal"  style={{display: 'block'}}  >
-        <Menu.Item  key="home" icon={<AppstoreOutlined />} className='' >
-          Home
-        </Menu.Item>
+        <Item  key="home" icon={<AppstoreOutlined />} className='' >
+          <Link to="/" >Home</Link>
+         
+        </Item>
         <SubMenu key="account" icon={<SettingOutlined />} title="Account">
-          <Menu.Item key="setting:1">Option 1</Menu.Item>
-          <Menu.Item key="setting:2">Option 2</Menu.Item>
+          <Item key="setting:1">
+          <Link to="/" >Home</Link>
+            </Item>
+          <Menu.Item key="setting:2">
+          <Link to="/" >Home</Link>
+            </Menu.Item>
         </SubMenu>
-        <Menu.Item key="register"   icon={<UserAddOutlined />}  className="float-right" style={{float:'right'}} >
-          Register
-        </Menu.Item>
-        <Menu.Item key="login"  icon={<UserOutlined />}  className="float-right" style={{float:'right'}}>
-          Login
-        </Menu.Item>
+        <Item key="register"   icon={<UserAddOutlined />}  className="float-right" style={{float:'right'}} >
+        <Link to="/register" >Register</Link>
+        </Item>
+        <Item key="login"  icon={<UserOutlined />}  className="float-right" style={{float:'right'}}>
+        <Link to="/login" >Login</Link>
+        </Item>
         
 
         
