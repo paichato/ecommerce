@@ -5,38 +5,28 @@ import {toast} from 'react-toastify';
 
 
 
-function Register() {
+function RegisterComplete({history}, props) {
 
     const [email, setEmail] = useState('');
+    const [password,setPassword]=useState('');
+
 
     useEffect(() => {
+
+        console.log(window.localStorage.getItem('EmailForRegistration'));
        toast.success('welcome');
+       console.log(props);
     }, [])
 
     const handleSubmit=async(e)=>{
         e.preventDefault();
-        console.log('ENV',process.env.REACT_APP_REGISTER_REDIRECT_URL);
-        const config={
-            url:process.env.REACT_APP_REGISTER_REDIRECT_URL,
-            handleCodeInApp:true
-        }
-
-        await auth.sendSignInLinkToEmail(email,config).then(()=>{
-            toast.success(`Email is sent to ${email}. Check your email`);
-            window.localStorage.setItem('emailForRegistration',email);
-            
-        }).catch((error)=>{
-            console.log(error);
-            toast.error('Something went wrong, try again!');
-        });
-
-        setEmail('');
+       
     
     }
 
     
 
-    const RegisterForm=()=>{
+    const CompleteRegistrationForm=()=>{
         return(
             <form onSubmit={handleSubmit}>
                 <input type='email' className='form-control' value={email} placeholder="Email" autoFocus onChange={e=>setEmail(e.target.value)} />
@@ -70,4 +60,4 @@ function Register() {
     )
 }
 
-export default Register
+export default RegisterComplete
