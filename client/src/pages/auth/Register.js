@@ -52,7 +52,7 @@ function Register() {
         <div className='container p-5'>
             <div className='row'>
                 <div className='col-md '  >
-                <img resize='contain' width={'90%'} height={'90%'} src='reg.svg' alt='regImage' />
+                <img resize='contain' width={'90%'} height={'90%'} src='../reg.svg' alt='regImage' />
                 </div>
             
                 <div className='col-md ' >
