@@ -11,6 +11,7 @@ function RegisterComplete({history}, props) {
     const [email, setEmail] = useState('');
     const [password,setPassword]=useState('');
     const [passwordTmp,setPasswordTmp]=useState('');
+    const [error,setError]=useState(false);
 
 
     useEffect(() => {
@@ -23,26 +24,33 @@ function RegisterComplete({history}, props) {
     const handleSubmit=async(e)=>{
         e.preventDefault();
        
+        if(password===passwordTmp){
+
+            auth.signInWithEmailLink(email,window.location.href).then((res)=>{
+console.log(res);
+            }).catch((error)=>{
+console.log(error);
+toast.error(error.message)
+            })
+        }else{
+            setError(true);
+        }
     
     }
 
     
 
-    const CompleteRegistrationForm=()=>{
-        return(
-            <form onSubmit={handleSubmit}>
-                <input type='password' className='form-control' value={password} placeholder="create password" autoFocus onChange={e=>setPassword(e.target.value)} />
-                <input type='password' className='form-control mt-2' value={passwordTmp} placeholder="confirm password" onChange={e=>setPasswordTmp(e.target.value)} />
-                <button type='submit' className='btn btn-primary mt-3'>Complete registration</button>
-                
-            </form>
-        )
-    }
+    // const CompleteRegistrationForm=()=>{
+    //     return(
+           
+    //     )
+    // }
 
     return (
         
        
         <div className='container p-5'>
+            
             <div className='row'>
                 <div className='col-md '  >
                 <img resize='contain' width={'90%'} height={'90%'} src='../reg-complete.svg' alt='regImage' />
@@ -50,9 +58,14 @@ function RegisterComplete({history}, props) {
             
                 <div className='col-md  ' >
                     <h4>Complete Registration for {email}</h4>
-                    <CompleteRegistrationForm/>
+                    <form onSubmit={handleSubmit}>
+                <input type='password' className='form-control' value={password} placeholder="create password" autoFocus  onChange={e=>setPassword(e.target.value)} />
+                <input type='password' className='form-control mt-2' value={passwordTmp} placeholder="confirm password" onChange={e=>setPasswordTmp(e.target.value)} />
+                <button type='submit' className='btn btn-primary mt-3'>Complete registration</button>
+                
+            </form>
                     {/* {email && <p className='mt-3 form-text' >We will send an email to {email}</p>} */}
-                   
+                   {error && <p className='text-danger form-text'>Passwords doesnt match</p>}
                 </div>
             </div>
 
