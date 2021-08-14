@@ -7,9 +7,7 @@ import Home from './pages/Home';
 import {toast, ToastContainer} from 'react-toastify';
 import RegisterComplete from './pages/auth/RegisterComplete';
 import 'react-toastify/dist/ReactToastify.css';
-import {createStore} from 'redux';
-import {Provider} from 'react-redux';
-import {composeWithDevTools} from 'redux-devtools-extension'
+
 require('dotenv').config()
 
 

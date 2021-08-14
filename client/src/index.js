@@ -3,14 +3,23 @@ import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 import 'antd/dist/antd.css'
 import 'mdb-react-ui-kit/dist/css/mdb.min.css';
+import {createStore} from 'redux';
+import {Provider} from 'react-redux';
+import {composeWithDevTools} from 'redux-devtools-extension';
 
 import App from "./App";
+import { rootReducer } from "./reducers";
+
+const store=createStore(rootReducer,composeWithDevTools());
 
 ReactDOM.render(
   // <React.StrictMode>
-    <BrowserRouter>
+  <Provider store={store} >
+ <BrowserRouter>
       <App />
     </BrowserRouter>
+  </Provider>
+   
   // </React.StrictMode>
   ,
   document.getElementById("root")
