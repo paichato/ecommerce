@@ -7,11 +7,33 @@ import Home from './pages/Home';
 import {toast, ToastContainer} from 'react-toastify';
 import RegisterComplete from './pages/auth/RegisterComplete';
 import 'react-toastify/dist/ReactToastify.css';
+import {auth} from './firebase';
+import {useDispatch} from 'react-redux'
+import { useEffect } from 'react';
 
 require('dotenv').config()
 
 
 function App() {
+
+  const dispatch=useDispatch();
+
+  useEffect(()=>{
+    const unsubscribe=auth.onAuthStateChanged(async(user)=>{
+      if (user){
+        const idTokenResult= await user.getIdTokenResult();
+        dispatch({
+          type: 'LOGGED_IN_USER',
+          payload:{
+            email:user.email,
+            token:idTokenResult.token,
+          }
+        })
+      }
+    });
+    return ()=>unsubscribe();
+  },[])
+
   return (
     <>
       {/* <p>Ecommerce</p> */}
