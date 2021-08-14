@@ -19,10 +19,20 @@ function Login() {
 
     const handleSubmit=async(e)=>{
         e.preventDefault();
+        setErrorMessage('');  
         if(!email || password.length<6){
-            setErrorMessage('Email cant be empty! Password must have 6 characters')
+            setErrorMessage('Email cant be empty! Password must have 6 characters');
+            console.log('error');
+        }else{
+            auth.signInWithEmailAndPassword(email,password).then((res)=>{
+console.log(res);
+            }).catch((err)=>{
+                console.log(err);
+                toast.error(err.message);
+                setErrorMessage(err.message);
+            })
         }
-        console.log('pressed');
+          
     
     }
 
@@ -44,7 +54,7 @@ function Login() {
                     <form onSubmit={handleSubmit}>
                 <input type='email' className='form-control' value={email} placeholder="Email"  onChange={e=>setEmail(e.target.value)} />
                 <input type='password' className='form-control mt-2' value={password} placeholder="Password"  onChange={e=>setPassword(e.target.value)} />
-                {errorMessage && <p className='mt-3 form-text text-danger' >{errorMessage}</p>}
+                {errorMessage ? <p className='mt-3 form-text text-danger' >{errorMessage}</p> : <div className='mt-3'></div>}
                 {/* <button type='submit' className='btn btn-primary mt-3'>Confirm</button> */}
                 <Button block   shape='round' icon={<MailOutlined/>} onClick={handleSubmit} type='submit' size='large' className=' bg-primary text-white shadow-5 mt-5 mb-3' >Login with Email/Password</Button>
                 
