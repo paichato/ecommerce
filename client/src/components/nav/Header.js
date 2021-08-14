@@ -9,16 +9,31 @@ import {
   
 } from "@ant-design/icons";
 import 'mdb-react-ui-kit/dist/css/mdb.min.css';
-import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom';
+import firebase from "firebase";
+import {useDispatch} from 'react-redux';
+import {useHistory} from 'react-router-dom'
 
 const { SubMenu, Item } = Menu;
 
 function Header() {
   const [current, setCurrent] = useState("home");
+  let dispatch=useDispatch();
+  let history=useHistory();
+
 
   const handleClick = (e) => {
       setCurrent(e.key);
   };
+
+  const logout=()=>{
+    firebase.auth().signOut();
+    dispatch({
+      type:'LOGOUT',
+      payload:null,
+    });
+    history.push('/login');
+  }
 
   return (
     <>
@@ -30,11 +45,12 @@ function Header() {
         </Item>
         <SubMenu key="account" icon={<SettingOutlined />} title="Account">
           <Item key="setting:1">
-          <Link to="/" >Home</Link>
+          <Link to="/" >Dashboard</Link>
             </Item>
           <Menu.Item key="setting:2">
-          <Link to="/" >Home</Link>
+          <Link to="/" >Edit profile</Link>
             </Menu.Item>
+          <Item onClick={logout} icon={<UserOutlined/>}>Logout</Item>
         </SubMenu>
         <Item key="register"   icon={<UserAddOutlined />}  className="float-right" style={{float:'right'}} >
         <Link to="/register" >Register</Link>
