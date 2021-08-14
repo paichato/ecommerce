@@ -33,7 +33,7 @@ function RegisterComplete({ history }, props) {
                    user.getIdTokenResult().then((res)=>{
                        console.log('token:',res);
                        console.log('user:',user);
-                    //    history.push('/')
+                       history.push('/')
                    }).catch((error)=>{
                        console.log(error);
                        toast.error(error);
