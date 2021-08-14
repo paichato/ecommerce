@@ -6,6 +6,7 @@ import {
   SettingOutlined,
   UserOutlined,
   UserAddOutlined,
+  LogoutOutlined
   
 } from "@ant-design/icons";
 import 'mdb-react-ui-kit/dist/css/mdb.min.css';
@@ -50,7 +51,7 @@ function Header() {
           <Menu.Item key="setting:2">
           <Link to="/" >Edit profile</Link>
             </Menu.Item>
-          <Item onClick={logout} icon={<UserOutlined/>}>Logout</Item>
+          <Item onClick={logout}  icon={<LogoutOutlined spin/>}>Logout</Item>
         </SubMenu>
         <Item key="register"   icon={<UserAddOutlined />}  className="float-right" style={{float:'right'}} >
         <Link to="/register" >Register</Link>
