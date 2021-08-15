@@ -47,7 +47,7 @@ function Header() {
           <Link to="/" >Home </Link>
          
         </Menu.Item>
-        {user && <SubMenu key="account" icon={<SettingOutlined />} style={{float:'right'}} title="Account">
+        {user && <SubMenu key="account" icon={<SettingOutlined />} style={{float:'right'}} title={user.email && user.email.split('@')[0]}>
           <Menu.Item key="setting:1">
           <Link to="/" >Dashboard</Link>
             </Menu.Item>
