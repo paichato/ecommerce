@@ -4,7 +4,7 @@ import { auth, googleAuthProvier } from "../../firebase";
 import { toast } from "react-toastify";
 import { Button } from "antd";
 import { MailOutlined, GoogleOutlined } from "@ant-design/icons";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 function Login({ history }) {
@@ -14,6 +14,12 @@ function Login({ history }) {
   const [errorMessage, setErrorMessage] = useState("");
   const [fetch, setFetch] = useState(false);
   let dispatch = useDispatch();
+  const {user}=useSelector((state)=>({...state}));
+
+
+  useEffect(()=>{
+    if(user && user.token) {history.push('/')};
+  },[user])
 
   useEffect(() => {
     toast.success("welcome");
