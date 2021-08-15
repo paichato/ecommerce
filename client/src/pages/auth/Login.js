@@ -141,6 +141,7 @@ function Login({ history }) {
             onClick={googleSubmit}
             type="danger"
             size="large"
+            shape='round'
             className=" shadow-5 mt-5 mb-3"
             loading={fetch}
           >
