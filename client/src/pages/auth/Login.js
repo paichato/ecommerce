@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { Button } from "antd";
 import { MailOutlined, GoogleOutlined } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
 function Login({ history }) {
   const [email, setEmail] = useState("");
@@ -67,13 +68,14 @@ function Login({ history }) {
         const idTokenResult = user
           .getIdTokenResult()
           .then(() => {
-              dispatch({
-                  type:'LOGGED_IN_USER',
-                  payload:{
-                      email:user.email,
-                    token:idTokenResult.token,                  }
-              });
-              history.push('/')
+            dispatch({
+              type: "LOGGED_IN_USER",
+              payload: {
+                email: user.email,
+                token: idTokenResult.token,
+              },
+            });
+            history.push("/");
           })
           .catch((err) => {
             console.log(err);
@@ -141,12 +143,15 @@ function Login({ history }) {
             onClick={googleSubmit}
             type="danger"
             size="large"
-            shape='round'
+            shape="round"
             className=" shadow-5 mt-5 mb-3"
             loading={fetch}
           >
             Login with Google
           </Button>
+          <Link to="/forgot/password" className="  mt-5  text-danger">
+            Forgot password?
+          </Link>
         </div>
       </div>
     </div>
