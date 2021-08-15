@@ -15,7 +15,7 @@ import firebase from "firebase";
 import {useDispatch} from 'react-redux';
 import {useHistory} from 'react-router-dom'
 
-const { SubMenu, Item } = Menu;
+const { SubMenu } = Menu;
 
 function Header() {
   const [current, setCurrent] = useState("home");
@@ -33,32 +33,34 @@ function Header() {
       type:'LOGOUT',
       payload:null,
     });
+    setCurrent('login');
     history.push('/login');
+    
   }
 
   return (
     <>
    
       <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal"  style={{display: 'block'}}  >
-        <Item  key="home" icon={<AppstoreOutlined />} className='' >
+        <Menu.Item  key="home" icon={<AppstoreOutlined />} className='' >
           <Link to="/" >Home</Link>
          
-        </Item>
+        </Menu.Item>
         <SubMenu key="account" icon={<SettingOutlined />} title="Account">
-          <Item key="setting:1">
+          <Menu.Item key="setting:1">
           <Link to="/" >Dashboard</Link>
-            </Item>
+            </Menu.Item>
           <Menu.Item key="setting:2">
           <Link to="/" >Edit profile</Link>
             </Menu.Item>
-          <Item onClick={logout}  icon={<LogoutOutlined spin/>}>Logout</Item>
+          <Menu.Item onClick={logout}  icon={<LogoutOutlined />}>Logout</Menu.Item>
         </SubMenu>
-        <Item key="register"   icon={<UserAddOutlined />}  className="float-right" style={{float:'right'}} >
+        <Menu.Item key="register"   icon={<UserAddOutlined />}  className="float-right" style={{float:'right'}} >
         <Link to="/register" >Register</Link>
-        </Item>
-        <Item key="login"  icon={<UserOutlined />}  className="float-right" style={{float:'right'}}>
+        </Menu.Item>
+        <Menu.Item key="login"  icon={<UserOutlined />}  className="float-right" style={{float:'right'}}>
         <Link to="/login" >Login</Link>
-        </Item>
+        </Menu.Item>
         
 
         
