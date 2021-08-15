@@ -17,10 +17,14 @@ const ForgotPassword = ({ history }) => {
           handleCodeInApp:true,
       };
       auth.sendPasswordResetEmail(email,config).then((res)=>{
-
+        setLoading(false);
+        toast.success('Email was sent to your mailbox');
       }).catch((err)=>{
           console.log(err);
-      })
+          setLoading(false);
+          toast.error(err.message);
+      });
+      
 
   }
 
