@@ -5,7 +5,7 @@ const bodyParser=require('body-parser');
 const morgan=require('morgan');
 const cors=require('cors');
 require('dotenv').config();
-
+const fs=require('fs');
 
 const authRoute=require('./routes/auth')
 //app
@@ -28,8 +28,8 @@ app.use(bodyParser.json({limit:'2mb'}));
 app.use(cors());
 
 //routes middleware
-app.use('/api',authRoute);
-
+// app.use('/api',authRoute);
+fs.readdirSync('./routes').map((r)=>app.use('/api',require('./routes/'+r)));
 
 //port
 
