@@ -6,6 +6,8 @@ const morgan=require('morgan');
 const cors=require('cors');
 require('dotenv').config();
 
+
+const authRoute=require('./routes/auth')
 //app
 const app=express();
 
@@ -25,12 +27,9 @@ app.use(morgan('dev'));
 app.use(bodyParser.json({limit:'2mb'}));
 app.use(cors());
 
-//methods
-app.get('/api',(req,res)=>{
-    res.json({
-        data:'Hello World'
-    })
-})
+//routes middleware
+app.use('/api',authRoute);
+
 
 //port
 
