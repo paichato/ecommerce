@@ -6,6 +6,19 @@ import { Button } from "antd";
 import { MailOutlined, GoogleOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import axios from "axios";
+
+const createOrUpdateUser = async (authtoken) => {
+  return await axios.post(
+    `${process.env.REACT_APP_API}/create-or-update-user`,
+    {},
+    {
+      headers: {
+        authtoken,
+      },
+    }
+  );
+};
 
 function Login({ history }) {
   const [email, setEmail] = useState("");
@@ -14,12 +27,13 @@ function Login({ history }) {
   const [errorMessage, setErrorMessage] = useState("");
   const [fetch, setFetch] = useState(false);
   let dispatch = useDispatch();
-  const {user}=useSelector((state)=>({...state}));
+  const { user } = useSelector((state) => ({ ...state }));
 
-
-  useEffect(()=>{
-    if(user && user.token) {history.push('/')};
-  },[user])
+  useEffect(() => {
+    if (user && user.token) {
+      history.push("/");
+    }
+  }, [user]);
 
   useEffect(() => {
     toast.success("welcome");
@@ -40,15 +54,22 @@ function Login({ history }) {
           const { user } = res;
           const idTokenResult = user
             .getIdTokenResult()
-            .then(() => {
-              dispatch({
-                type: "LOGGED_IN_USER",
-                payload: {
-                  email: user.email,
-                  token: idTokenResult.token,
-                },
-              });
-              history.push("/");
+            .then((tkn) => {
+              createOrUpdateUser(tkn.token)
+                .then((res) => {
+                  console.log("Create or Update", res.data);
+                })
+                .catch((error) => {
+                  console.log(error);
+                });
+              // dispatch({
+              //   type: "LOGGED_IN_USER",
+              //   payload: {
+              //     email: user.email,
+              //     token: idTokenResult.token,
+              //   },
+              // });
+              // history.push("/");
               setFetch(false);
             })
             .catch((err) => {
