@@ -4,18 +4,7 @@ import { auth } from "../../firebase";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-
-const createOrUpdateUser = async (authtoken) => {
-  return await axios.post(
-    `${process.env.REACT_APP_API}/create-or-update-user`,
-    {},
-    {
-      headers: {
-        authtoken,
-      },
-    }
-  );
-};
+import { createOrUpdateUser } from "../../functions/auth";
 
 function RegisterComplete({ history }, props) {
   // let userEmail= window.localStorage.getItem('emailForRegistration');
