@@ -58,18 +58,22 @@ function Login({ history }) {
               createOrUpdateUser(tkn.token)
                 .then((res) => {
                   console.log("Create or Update", res.data);
+                  dispatch({
+                    type: "LOGGED_IN_USER",
+                    payload: {
+                      name: res.data.name,
+                      email: res.data.email,
+                      token: idTokenResult.token,
+                      role: res.data.role,
+                      _id: res.data._id,
+                    },
+                  });
                 })
                 .catch((error) => {
                   console.log(error);
                 });
-              // dispatch({
-              //   type: "LOGGED_IN_USER",
-              //   payload: {
-              //     email: user.email,
-              //     token: idTokenResult.token,
-              //   },
-              // });
-              // history.push("/");
+
+              history.push("/");
               setFetch(false);
             })
             .catch((err) => {
@@ -94,14 +98,24 @@ function Login({ history }) {
         const { user } = res;
         const idTokenResult = user
           .getIdTokenResult()
-          .then(() => {
-            dispatch({
-              type: "LOGGED_IN_USER",
-              payload: {
-                email: user.email,
-                token: idTokenResult.token,
-              },
-            });
+          .then((tkn) => {
+            createOrUpdateUser(tkn.token)
+              .then((res) => {
+                console.log("Create or Update", res.data);
+                dispatch({
+                  type: "LOGGED_IN_USER",
+                  payload: {
+                    name: res.data.name,
+                    email: res.data.email,
+                    token: idTokenResult.token,
+                    role: res.data.role,
+                    _id: res.data._id,
+                  },
+                });
+              })
+              .catch((error) => {
+                console.log(error);
+              });
             history.push("/");
           })
           .catch((err) => {
