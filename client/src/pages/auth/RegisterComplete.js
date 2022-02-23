@@ -2,6 +2,20 @@ import React, { useEffect, useState } from "react";
 
 import { auth } from "../../firebase";
 import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+
+const createOrUpdateUser = async (authtoken) => {
+  return await axios.post(
+    `${process.env.REACT_APP_API}/create-or-update-user`,
+    {},
+    {
+      headers: {
+        authtoken,
+      },
+    }
+  );
+};
 
 function RegisterComplete({ history }, props) {
   // let userEmail= window.localStorage.getItem('emailForRegistration');
@@ -10,6 +24,9 @@ function RegisterComplete({ history }, props) {
   const [password, setPassword] = useState("");
   const [passwordTmp, setPasswordTmp] = useState("");
   const [error, setError] = useState(false);
+
+  const { user } = useSelector((state) => ({ ...state }));
+  let dispatch = useDispatch();
 
   useEffect(() => {
     setEmail(window.localStorage.getItem("emailForRegistration"));
@@ -25,34 +42,57 @@ function RegisterComplete({ history }, props) {
         .signInWithEmailLink(email, window.location.href)
         .then((res) => {
           console.log(res);
-          if(res.user.emailVerified){
-              window.localStorage.removeItem('emailForRegistration');
-              let user= auth.currentUser;
-              user.updatePassword(password).then((res)=>{
-                  console.log('updatePass:',res);
-                   user.getIdTokenResult().then((res)=>{
-                       console.log('token:',res);
-                       console.log('user:',user);
-                       history.push('/')
-                   }).catch((error)=>{
-                       console.log(error);
-                       toast.error(error);
-                   })
-              }).catch((error)=>{
-                  console.log(error);
-                  toast.error(error)
+          if (res.user.emailVerified) {
+            window.localStorage.removeItem("emailForRegistration");
+            let user = auth.currentUser;
+            user
+              .updatePassword(password)
+              .then((res) => {
+                console.log("updatePass:", res);
+                user
+                  .getIdTokenResult()
+                  .then((tkn) => {
+                    console.log("token:", tkn);
+                    console.log("user:", user);
+                    createOrUpdateUser(tkn.token)
+                      .then((response) => {
+                        console.log("Create or Update", response.data);
+                        dispatch({
+                          type: "LOGGED_IN_USER",
+                          payload: {
+                            name: response.data.name,
+                            email: response.data.email,
+                            token: tkn.token,
+                            role: response.data.role,
+                            _id: response.data._id,
+                          },
+                        });
+                      })
+                      .catch((error) => {
+                        console.log(error);
+                      });
+                    history.push("/");
+                  })
+                  .catch((error) => {
+                    console.log(error);
+                    toast.error(error);
+                  });
               })
+              .catch((error) => {
+                console.log(error);
+                toast.error(error);
+              });
           }
         })
         .catch((error) => {
           console.log(error);
           toast.error(error.message);
         });
-    } else if(password.length<6) {
+    } else if (password.length < 6) {
       setError(true);
-      toast.error('password must be at least 6 characters long')
-    }else{
-        setError(true);
+      toast.error("password must be at least 6 characters long");
+    } else {
+      setError(true);
     }
   };
 
