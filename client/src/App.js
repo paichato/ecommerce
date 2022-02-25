@@ -1,78 +1,78 @@
+import { Switch, Route } from "react-router-dom";
+import Header from "./components/nav/Header";
+import Login from "./pages/auth/Login";
+import Register from "./pages/auth/Register";
+import Home from "./pages/Home";
+import { toast, ToastContainer } from "react-toastify";
+import RegisterComplete from "./pages/auth/RegisterComplete";
+import "react-toastify/dist/ReactToastify.css";
+import { auth } from "./firebase";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import ForgotPassword from "./pages/auth/ForgotPassword";
+import { currentUser } from "./functions/auth";
+import History from "./pages/user/History";
 
-import {Switch,Route} from 'react-router-dom'
-import Header from './components/nav/Header';
-import Login from './pages/auth/Login';
-import Register from './pages/auth/Register';
-import Home from './pages/Home';
-import {toast, ToastContainer} from 'react-toastify';
-import RegisterComplete from './pages/auth/RegisterComplete';
-import 'react-toastify/dist/ReactToastify.css';
-import {auth} from './firebase';
-import {useDispatch} from 'react-redux'
-import { useEffect } from 'react';
-import ForgotPassword from './pages/auth/ForgotPassword';
-import {currentUser} from './functions/auth'
-
-require('dotenv').config()
-
+require("dotenv").config();
 
 function App() {
+  const dispatch = useDispatch();
 
-  const dispatch=useDispatch();
-
-  useEffect(()=>{
-    const unsubscribe=auth.onAuthStateChanged(async(user)=>{
-      if (user){
-        const idTokenResult= await user.getIdTokenResult();
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        const idTokenResult = await user.getIdTokenResult();
         currentUser(idTokenResult.token)
-                      .then((response) => {
-                        console.log("Create or Update", response.data);
-                        dispatch({
-                          type: "LOGGED_IN_USER",
-                          payload: {
-                            name: response.data.name,
-                            email: response.data.email,
-                            token: idTokenResult.token,
-                            role: response.data.role,
-                            _id: response.data._id,
-                          },
-                        });
-                      })
-                      .catch((error) => {
-                        console.log(error);
-                      }); currentUser(idTokenResult.token)
-                      .then((response) => {
-                        console.log("Create or Update", response.data);
-                        dispatch({
-                          type: "LOGGED_IN_USER",
-                          payload: {
-                            name: response.data.name,
-                            email: response.data.email,
-                            token: idTokenResult.token,
-                            role: response.data.role,
-                            _id: response.data._id,
-                          },
-                        });
-                      })
-                      .catch((error) => {
-                        console.log(error);
-                      }); 
+          .then((response) => {
+            console.log("Create or Update", response.data);
+            dispatch({
+              type: "LOGGED_IN_USER",
+              payload: {
+                name: response.data.name,
+                email: response.data.email,
+                token: idTokenResult.token,
+                role: response.data.role,
+                _id: response.data._id,
+              },
+            });
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+        currentUser(idTokenResult.token)
+          .then((response) => {
+            console.log("Create or Update", response.data);
+            dispatch({
+              type: "LOGGED_IN_USER",
+              payload: {
+                name: response.data.name,
+                email: response.data.email,
+                token: idTokenResult.token,
+                role: response.data.role,
+                _id: response.data._id,
+              },
+            });
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       }
     });
-    return ()=>unsubscribe();
-  },[])
+    return () => unsubscribe();
+  }, []);
 
   return (
     <>
       {/* <p>Ecommerce</p> */}
-      <Header/>
-      <ToastContainer/>
+      <Header />
+      <ToastContainer />
       <Switch>
-        <Route exact path='/' component={Home}/>
-        <Route exact path='/login' component={Login}/>
-        <Route exact path='/register' component={Register}/>
-        <Route exact path='/register/complete' component={RegisterComplete}/>
-        <Route exact path='/forgot/password' component={ForgotPassword}/>
+        <Route exact path="/" component={Home} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/register" component={Register} />
+        <Route exact path="/register/complete" component={RegisterComplete} />
+        <Route exact path="/forgot/password" component={ForgotPassword} />
+        <Route exact path="/user/history" component={History} />
       </Switch>
     </>
   );
