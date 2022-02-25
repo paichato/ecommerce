@@ -17,6 +17,14 @@ function Login({ history }) {
   let dispatch = useDispatch();
   const { user } = useSelector((state) => ({ ...state }));
 
+  const roleBasedRedirect = (res) => {
+    if (res.data.role === "admin") {
+      history.push("/admin/dashboard");
+    } else {
+      history.push("/user/history");
+    }
+  };
+
   useEffect(() => {
     if (user && user.token) {
       history.push("/");
@@ -56,12 +64,14 @@ function Login({ history }) {
                       _id: res.data._id,
                     },
                   });
+                  //redirect based on role
+                  roleBasedRedirect(res);
                 })
                 .catch((error) => {
                   console.log(error);
                 });
 
-              history.push("/");
+              // history.push("/");
               setFetch(false);
             })
             .catch((err) => {
