@@ -11,6 +11,7 @@ import {auth} from './firebase';
 import {useDispatch} from 'react-redux'
 import { useEffect } from 'react';
 import ForgotPassword from './pages/auth/ForgotPassword';
+import {currentUser} from './functions/auth'
 
 require('dotenv').config()
 
@@ -23,13 +24,39 @@ function App() {
     const unsubscribe=auth.onAuthStateChanged(async(user)=>{
       if (user){
         const idTokenResult= await user.getIdTokenResult();
-        dispatch({
-          type: 'LOGGED_IN_USER',
-          payload:{
-            email:user.email,
-            token:idTokenResult.token,
-          }
-        })
+        currentUser(idTokenResult.token)
+                      .then((response) => {
+                        console.log("Create or Update", response.data);
+                        dispatch({
+                          type: "LOGGED_IN_USER",
+                          payload: {
+                            name: response.data.name,
+                            email: response.data.email,
+                            token: idTokenResult.token,
+                            role: response.data.role,
+                            _id: response.data._id,
+                          },
+                        });
+                      })
+                      .catch((error) => {
+                        console.log(error);
+                      }); currentUser(idTokenResult.token)
+                      .then((response) => {
+                        console.log("Create or Update", response.data);
+                        dispatch({
+                          type: "LOGGED_IN_USER",
+                          payload: {
+                            name: response.data.name,
+                            email: response.data.email,
+                            token: idTokenResult.token,
+                            role: response.data.role,
+                            _id: response.data._id,
+                          },
+                        });
+                      })
+                      .catch((error) => {
+                        console.log(error);
+                      }); 
       }
     });
     return ()=>unsubscribe();
