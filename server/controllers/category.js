@@ -18,7 +18,19 @@ exports.read = async (req, res) => {
   let category = await Category.findOne({ slug: req.params.slug }).exec();
   res.json(category);
 };
-exports.update = async (req, res) => {};
+exports.update = async (req, res) => {
+  const { name } = req.body;
+  try {
+    const updated = await Category.findOneAndUpdate(
+      { slug: req.params.slug },
+      { name, slug: slugify(name) },
+      { new: true }
+    );
+    res.json(updated);
+  } catch (error) {
+    res.status(400).send("Update failed");
+  }
+};
 exports.remove = async (req, res) => {
   try {
     const deleted = await Category.findOneAndDelete({ slug: req.params.slug });
