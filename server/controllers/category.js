@@ -2,6 +2,7 @@ const Category = require("../models/category");
 const slugify = require("slugify");
 
 exports.create = async (req, res) => {
+  console.log("bodY:", req.body);
   try {
     const { name } = req.body;
     const category = await new Category({ name, slug: slugify(name) }).save();
