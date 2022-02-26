@@ -10,7 +10,9 @@ exports.create = async (req, res) => {
     res.status(400).send("Create category failed");
   }
 };
-exports.list = async (req, res) => {};
+exports.list = async (req, res) => {
+  res.json(await Category.find({}).sort({ createAt: -1 }).exec());
+};
 exports.read = async (req, res) => {};
 exports.update = async (req, res) => {};
 exports.remove = async (req, res) => {};
