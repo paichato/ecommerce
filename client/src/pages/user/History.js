@@ -5,7 +5,7 @@ function History() {
   return (
     <div className="container-fluid">
       <div className="row">
-        <div className="colmd-2">
+        <div className="col-md-2">
           <UserNav />
         </div>
 
