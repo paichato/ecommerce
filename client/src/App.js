@@ -3,12 +3,12 @@ import Header from "./components/nav/Header";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import Home from "./pages/Home";
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import RegisterComplete from "./pages/auth/RegisterComplete";
 import "react-toastify/dist/ReactToastify.css";
 import { auth } from "./firebase";
 import { useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import ForgotPassword from "./pages/auth/ForgotPassword";
 import { currentUser } from "./functions/auth";
 import History from "./pages/user/History";
@@ -64,7 +64,7 @@ function App() {
       }
     });
     return () => unsubscribe();
-  }, []);
+  }, [dispatch]);
 
   return (
     <>

@@ -14,13 +14,14 @@ function RegisterComplete({ history }, props) {
   const [error, setError] = useState(false);
 
   const { user } = useSelector((state) => ({ ...state }));
+  console.log("REDUX USER STATE:", user);
   let dispatch = useDispatch();
 
   useEffect(() => {
     setEmail(window.localStorage.getItem("emailForRegistration"));
     toast.success("One more step");
     console.log(props);
-  }, [history]);
+  }, [history, props]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
