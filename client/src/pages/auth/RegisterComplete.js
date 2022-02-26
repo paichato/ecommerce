@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { auth } from "../../firebase";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
 import { createOrUpdateUser } from "../../functions/auth";
 
 function RegisterComplete({ history }, props) {
@@ -21,7 +20,7 @@ function RegisterComplete({ history }, props) {
     setEmail(window.localStorage.getItem("emailForRegistration"));
     toast.success("One more step");
     console.log(props);
-  }, []);
+  }, [history]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

@@ -12,7 +12,7 @@ function Register({ history }) {
     if (user && user.token) {
       history.push("/");
     }
-  }, [user]);
+  }, [user, history]);
 
   useEffect(() => {
     toast.success("welcome");
