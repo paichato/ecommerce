@@ -1,7 +1,51 @@
-import React from "react";
+import React, { useState } from "react";
 import UserNav from "../../components/nav/UserNav";
+import { auth } from "../../firebase";
+import { toast } from "react-toastify";
 
 function Password() {
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    await auth.currentUser
+      .updatePassword(password)
+      .then((res) => {
+        setLoading(false);
+        setPassword("");
+        toast.success("Password updated");
+      })
+      .catch((err) => {
+        setLoading(false);
+        console.log(err);
+        toast.error(err.message);
+      });
+  };
+
+  const passwordUpdateForm = () => (
+    <form onSubmit={handleSubmit}>
+      <div className="form-group">
+        <label>Your Password</label>
+        <input
+          type="password"
+          onChange={(e) => setPassword(e.target.value)}
+          className="form-control"
+          placeholder="Enter new password"
+          disabled={loading}
+          value={password}
+        />
+        <button
+          disabled={!password || password.length < 6 || loading}
+          className="btn btn-primary "
+        >
+          Submit
+        </button>
+      </div>
+    </form>
+  );
+
   return (
     <div className="container-fluid">
       <div className="row">
@@ -9,7 +53,14 @@ function Password() {
           <UserNav />
         </div>
 
-        <div className="col">user password update page</div>
+        <div className="col">
+          {loading ? (
+            <h4 className="text-danger">Loading...</h4>
+          ) : (
+            <h4>Password Update</h4>
+          )}
+          {passwordUpdateForm()}
+        </div>
       </div>
     </div>
   );
