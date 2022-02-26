@@ -12,6 +12,7 @@ import { useEffect } from "react";
 import ForgotPassword from "./pages/auth/ForgotPassword";
 import { currentUser } from "./functions/auth";
 import History from "./pages/user/History";
+import UserRoute from "./components/routes/UserRoute";
 
 require("dotenv").config();
 
@@ -72,7 +73,7 @@ function App() {
         <Route exact path="/register" component={Register} />
         <Route exact path="/register/complete" component={RegisterComplete} />
         <Route exact path="/forgot/password" component={ForgotPassword} />
-        <Route exact path="/user/history" component={History} />
+        <UserRoute exact path="/user/history" component={History} />
       </Switch>
     </>
   );
