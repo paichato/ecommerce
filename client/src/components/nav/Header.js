@@ -58,6 +58,11 @@ function Header() {
                 <Link to="/user/history">Dashboard</Link>
               </Menu.Item>
             )}
+            {user && user.role === "admin" && (
+              <Menu.Item key="setting:1">
+                <Link to="/admin/dashboard">Dashboard</Link>
+              </Menu.Item>
+            )}
 
             <Menu.Item key="setting:2">
               <Link to="/">Edit profile</Link>
