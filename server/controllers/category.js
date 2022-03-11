@@ -12,7 +12,7 @@ exports.create = async (req, res) => {
   }
 };
 exports.list = async (req, res) => {
-  res.json(await Category.find({}).sort({ createAt: -1 }).exec());
+  res.json(await Category.find({}).sort({ createdAt: -1 }).exec());
 };
 exports.read = async (req, res) => {
   let category = await Category.findOne({ slug: req.params.slug }).exec();
