@@ -53,9 +53,12 @@ function Header() {
             style={{ float: "right" }}
             title={user.email && user.email.split("@")[0]}
           >
-            <Menu.Item key="setting:1">
-              <Link to="/">Dashboard</Link>
-            </Menu.Item>
+            {user && user.role === "subscriber" && (
+              <Menu.Item key="setting:1">
+                <Link to="/user/history">Dashboard</Link>
+              </Menu.Item>
+            )}
+
             <Menu.Item key="setting:2">
               <Link to="/">Edit profile</Link>
             </Menu.Item>
