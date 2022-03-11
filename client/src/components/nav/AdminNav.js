@@ -7,7 +7,7 @@ function AdminNav() {
       <ul className="nav flex-column">
         <li className="nav-item">
           <Link to="/admin/dashboard" className="nav-link">
-            History
+            Dashboard
           </Link>
         </li>
         <li className="nav-item">
