@@ -3,7 +3,11 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import AdminNav from "../../../components/nav/AdminNav";
-import { createCategory, getCategories } from "../../../functions/category";
+import {
+  createCategory,
+  getCategories,
+  removeCategory,
+} from "../../../functions/category";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 
 export default function CategoryCreate() {
@@ -24,6 +28,18 @@ export default function CategoryCreate() {
 
   const handleRemove = async (slug) => {
     if (window.confirm(`Are you sure you want to Delete ${slug}`)) {
+      setLoading(true);
+      removeCategory(slug, user.token)
+        .then((res) => {
+          console.log(res.data);
+          loadCategories();
+          setLoading(false);
+          toast.error(`${res.data.deleted.name} deleted`);
+        })
+        .catch((err) => {
+          setLoading(false);
+          err.response.status === 400 && toast.error(err.response.data);
+        });
     }
   };
 
