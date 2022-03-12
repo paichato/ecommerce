@@ -22,6 +22,11 @@ export default function CategoryCreate() {
       .catch((err) => console.log(err));
   };
 
+  const handleRemove = async (slug) => {
+    if (window.confirm(`Are you sure you want to Delete ${slug}`)) {
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(name);
@@ -83,16 +88,14 @@ export default function CategoryCreate() {
             <div className="alert alert-secondary" key={c._id}>
               {c.name}{" "}
               <span
-                className="btn btn-sm float-right"
+                onClick={() => handleRemove(c.slug)}
+                className="btn btn-sm "
                 style={{ float: "right" }}
               >
                 <DeleteOutlined className="text-danger" />
               </span>{" "}
               <Link to={`/admin/category/${c.slug}`}>
-                <span
-                  className="btn btn-sm float-right"
-                  style={{ float: "right" }}
-                >
+                <span className="btn btn-sm" style={{ float: "right" }}>
                   <EditOutlined className="text-warning" />
                 </span>
               </Link>
