@@ -5,7 +5,7 @@ exports.create = async (req, res) => {
   console.log("bodY:", req.body);
   try {
     const { name } = req.body;
-    let existingCategory = await Category.findOne({ slug: name }).exec;
+    let existingCategory = await Category.findOne({ slug: name }).exec();
     if (existingCategory) {
       res.status(400).send("Categoria já existe");
     } else {
