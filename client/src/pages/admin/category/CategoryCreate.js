@@ -9,6 +9,7 @@ import {
   removeCategory,
 } from "../../../functions/category";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import CategoryForm from "../../../components/forms/CategoryForm";
 
 export default function CategoryCreate() {
   const [name, setName] = useState("");
@@ -63,26 +64,26 @@ export default function CategoryCreate() {
       });
   };
 
-  const CategoryForm = () => {
-    return (
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>Name</label>
-          <input
-            type="text"
-            className="form-control"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            autoFocus
-            required
-          />
-          <button disabled={loading} className="btn btn-outline-primary mt-2">
-            Save
-          </button>
-        </div>
-      </form>
-    );
-  };
+  // const CategoryForm = () => {
+  //   return (
+  //     <form onSubmit={handleSubmit}>
+  //       <div className="form-group">
+  //         <label>Name</label>
+  //         <input
+  //           type="text"
+  //           className="form-control"
+  //           value={name}
+  //           onChange={(e) => setName(e.target.value)}
+  //           autoFocus
+  //           required
+  //         />
+  //         <button disabled={loading} className="btn btn-outline-primary mt-2">
+  //           Save
+  //         </button>
+  //       </div>
+  //     </form>
+  //   );
+  // };
 
   return (
     <div className="container-fluid">
@@ -98,7 +99,12 @@ export default function CategoryCreate() {
             <h4>Create Category</h4>
           )}
 
-          <CategoryForm />
+          <CategoryForm
+            name={name}
+            setName={setName}
+            handleSubmit={handleSubmit}
+            loading={loading}
+          />
           <hr />
           {categories.map((c) => (
             <div className="alert alert-secondary" key={c._id}>
