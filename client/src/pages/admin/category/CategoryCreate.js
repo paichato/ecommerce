@@ -2,14 +2,23 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import AdminNav from "../../../components/nav/AdminNav";
-import { createCategory } from "../../../functions/category";
+import { createCategory, getCategories } from "../../../functions/category";
 
 export default function CategoryCreate() {
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
+  const [categories, setCategories] = useState([]);
   const { user } = useSelector((state) => ({ ...state }));
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    loadCategories();
+  }, []);
+
+  const loadCategories = () => {
+    getCategories()
+      .then((c) => setCategories(c.data))
+      .catch((err) => console.log(err));
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -67,6 +76,8 @@ export default function CategoryCreate() {
             )}
           </h4>
           <CategoryForm />
+          <hr />
+          {categories.length}
         </div>
       </div>
     </div>
