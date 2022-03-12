@@ -7,14 +7,14 @@ export default function LocalSearch({ keyword, setKeyword }) {
   };
 
   return (
-    <div className="container pt-4 pb-4">
-      <input
-        type="search"
-        placeholder="Filter categories"
-        value={keyword}
-        onChange={handleSearchChange}
-        className="form-control mb-4"
-      />
-    </div>
+    // <div className="container pt-4 pb-4">
+    <input
+      type="search"
+      placeholder="Filter categories"
+      value={keyword}
+      onChange={handleSearchChange}
+      className="form-control mb-4"
+    />
+    // </div>
   );
 }
