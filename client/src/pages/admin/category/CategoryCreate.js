@@ -27,6 +27,7 @@ export default function CategoryCreate() {
     createCategory({ name }, user.token)
       .then((res) => {
         console.log(res.data);
+        loadCategories();
         setName("");
         toast.success(`category ${res.data.name} has been created`);
       })
@@ -68,16 +69,19 @@ export default function CategoryCreate() {
         </div>
 
         <div className="col">
-          <h4>
-            {loading ? (
-              <h4 className="text-danger">Loading...</h4>
-            ) : (
-              "Create  Category"
-            )}
-          </h4>
+          {loading ? (
+            <h4 className="text-danger">Loading...</h4>
+          ) : (
+            <h4>Create Category</h4>
+          )}
+
           <CategoryForm />
           <hr />
-          {categories.length}
+          {categories.map((c) => (
+            <div className="alert alert-secondary" key={c._id}>
+              {c.name}
+            </div>
+          ))}
         </div>
       </div>
     </div>
