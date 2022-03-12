@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import CategoryForm from "../../../components/forms/CategoryForm";
 import AdminNav from "../../../components/nav/AdminNav";
 import {
   getCategory,
@@ -51,26 +52,26 @@ export default function CategoryUpdate({ history, match }) {
       });
   };
 
-  const CategoryForm = () => {
-    return (
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>Name</label>
-          <input
-            type="text"
-            className="form-control"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            autoFocus
-            required
-          />
-          <button disabled={loading} className="btn btn-outline-primary mt-2">
-            Save
-          </button>
-        </div>
-      </form>
-    );
-  };
+  //   const CategoryForm = () => {
+  //     return (
+  //       <form onSubmit={handleSubmit}>
+  //         <div className="form-group">
+  //           <label>Name</label>
+  //           <input
+  //             type="text"
+  //             className="form-control"
+  //             value={name}
+  //             onChange={(e) => setName(e.target.value)}
+  //             autoFocus
+  //             required
+  //           />
+  //           <button disabled={loading} className="btn btn-outline-primary mt-2">
+  //             Save
+  //           </button>
+  //         </div>
+  //       </form>
+  //     );
+  //   };
 
   return (
     <div className="container-fluid">
@@ -86,7 +87,12 @@ export default function CategoryUpdate({ history, match }) {
             <h4>Update Category</h4>
           )}
 
-          <CategoryForm />
+          <CategoryForm
+            loading={loading}
+            name={name}
+            setName={setName}
+            handleSubmit={handleSubmit}
+          />
           <hr />
         </div>
       </div>
