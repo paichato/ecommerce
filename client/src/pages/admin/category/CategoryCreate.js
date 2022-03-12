@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import AdminNav from "../../../components/nav/AdminNav";
 import { createCategory, getCategories } from "../../../functions/category";
+import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 
 export default function CategoryCreate() {
   const [name, setName] = useState("");
@@ -79,7 +81,21 @@ export default function CategoryCreate() {
           <hr />
           {categories.map((c) => (
             <div className="alert alert-secondary" key={c._id}>
-              {c.name}
+              {c.name}{" "}
+              <span
+                className="btn btn-sm float-right"
+                style={{ float: "right" }}
+              >
+                <DeleteOutlined className="text-danger" />
+              </span>{" "}
+              <Link to={`/admin/category/${c.slug}`}>
+                <span
+                  className="btn btn-sm float-right"
+                  style={{ float: "right" }}
+                >
+                  <EditOutlined className="text-warning" />
+                </span>
+              </Link>
             </div>
           ))}
         </div>
