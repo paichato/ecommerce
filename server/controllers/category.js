@@ -5,8 +5,13 @@ exports.create = async (req, res) => {
   console.log("bodY:", req.body);
   try {
     const { name } = req.body;
-    const category = await new Category({ name, slug: slugify(name) }).save();
-    res.json(category);
+    let existingCategory = await Category.findOne({ slug: name }).exec;
+    if (existingCategory) {
+      res.status(400).send("Categoria já existe");
+    } else {
+      const category = await new Category({ name, slug: slugify(name) }).save();
+      res.json(category);
+    }
   } catch (error) {
     res.status(400).send("Create category failed");
   }
