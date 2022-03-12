@@ -16,6 +16,7 @@ export default function CategoryCreate() {
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState([]);
   const { user } = useSelector((state) => ({ ...state }));
+  const [keyword, setKeyword] = useState("");
 
   useEffect(() => {
     loadCategories();
@@ -64,26 +65,12 @@ export default function CategoryCreate() {
       });
   };
 
-  // const CategoryForm = () => {
-  //   return (
-  //     <form onSubmit={handleSubmit}>
-  //       <div className="form-group">
-  //         <label>Name</label>
-  //         <input
-  //           type="text"
-  //           className="form-control"
-  //           value={name}
-  //           onChange={(e) => setName(e.target.value)}
-  //           autoFocus
-  //           required
-  //         />
-  //         <button disabled={loading} className="btn btn-outline-primary mt-2">
-  //           Save
-  //         </button>
-  //       </div>
-  //     </form>
-  //   );
-  // };
+  const handleSearchChange = (e) => {
+    e.preventDefault();
+    setKeyword(e.target.value.toLowerCase());
+  };
+
+  const searched = (keyword) => (c) => c.name.toLowerCase().includes(keyword);
 
   return (
     <div className="container-fluid">
@@ -106,7 +93,15 @@ export default function CategoryCreate() {
             loading={loading}
           />
           <hr />
-          {categories.map((c) => (
+          <input
+            type="search"
+            placeholder="Filter categories"
+            value={keyword}
+            onChange={handleSearchChange}
+            className="form-control mb-4"
+          />
+          <hr />
+          {categories.filter(searched(keyword)).map((c) => (
             <div className="alert alert-secondary" key={c._id}>
               {c.name}{" "}
               <span
