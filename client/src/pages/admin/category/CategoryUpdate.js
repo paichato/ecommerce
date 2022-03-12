@@ -32,12 +32,15 @@ export default function CategoryUpdate({ history, match }) {
     e.preventDefault();
     console.log(name);
     setLoading(true);
-    updateCategory({ name }, user.token)
+    updateCategory(match.params.slug, { name }, user.token)
       .then((res) => {
         console.log(res.data);
 
-        setName("");
-        toast.success(`category ${res.data.name} has been created`);
+        setName(res.data.name);
+        toast.success(
+          `category ${match.params.slug} has been updated to ${res.data.name}`
+        );
+        history.push("/admin/category");
       })
       .catch((err) => {
         console.log(err.response.data);
