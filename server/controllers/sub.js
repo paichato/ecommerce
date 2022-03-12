@@ -4,12 +4,12 @@ const slugify = require("slugify");
 exports.create = async (req, res) => {
   console.log("bodY:", req.body);
   try {
-    const { name } = req.body;
+    const { name, parent } = req.body;
     let existingSub = await Sub.findOne({ slug: name }).exec();
     if (existingSub) {
       res.status(400).send("Sub already exists");
     } else {
-      const sub = await new Sub({ name, slug: slugify(name) }).save();
+      const sub = await new Sub({ name, parent, slug: slugify(name) }).save();
       res.json(sub);
     }
   } catch (error) {

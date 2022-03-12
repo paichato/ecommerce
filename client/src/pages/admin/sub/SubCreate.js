@@ -17,6 +17,7 @@ export default function SubCreate() {
   const [categories, setCategories] = useState([]);
   const { user } = useSelector((state) => ({ ...state }));
   const [keyword, setKeyword] = useState("");
+  const [category, setCategory] = useState("");
 
   useEffect(() => {
     loadCategories();
@@ -49,7 +50,7 @@ export default function SubCreate() {
     e.preventDefault();
     console.log(name);
     setLoading(true);
-    createSub({ name }, user.token)
+    createSub({ name, parent: category }, user.token)
       .then((res) => {
         console.log(res.data);
         // loadCategories();
@@ -81,10 +82,19 @@ export default function SubCreate() {
             <h4>Create Sub</h4>
           )}
           <div className="form-group">
-            <label>Category</label>
-            <select name="category" className="form-control">
+            <label>Parent category</label>
+            <select
+              name="category"
+              className="form-control"
+              onChange={(e) => setCategory(e.target.value)}
+            >
+              <option>Please select a parent category</option>
               {categories.length > 0 &&
-                categories.map((c) => <option>{c.name}</option>)}
+                categories.map((c) => (
+                  <option key={c._id} value={c._id}>
+                    {c.name}
+                  </option>
+                ))}
             </select>
           </div>
 
