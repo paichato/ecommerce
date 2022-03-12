@@ -22,4 +22,4 @@ const SubSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Sub", subSchema);
+module.exports = mongoose.model("Sub", SubSchema);
