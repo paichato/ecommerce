@@ -1,6 +1,6 @@
 const Category = require("../models/category");
 const slugify = require("slugify");
-const Sub = require("../models/category");
+const Sub = require("../models/sub");
 
 exports.create = async (req, res) => {
   console.log("bodY:", req.body);
