@@ -3,24 +3,30 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import AdminNav from "../../../components/nav/AdminNav";
-import { createSub, getSubs, getSub, removeSub } from "../../../functions/sub";
+import {
+  createSub,
+  getSubs,
+  getSub,
+  removeSub,
+  updateSub,
+} from "../../../functions/sub";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 // import SubForm from "../../../components/forms/SubForm";
 import LocalSearch from "../../../components/forms/LocalSearch";
 import { getCategories } from "../../../functions/category";
 import CategoryForm from "../../../components/forms/CategoryForm";
 
-export default function SubUpdate() {
+export default function SubUpdate({ history, match }) {
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
-  const [subs, setSubs] = useState([]);
+  const [sub, setSub] = useState([]);
   const [categories, setCategories] = useState([]);
   const { user } = useSelector((state) => ({ ...state }));
-  const [keyword, setKeyword] = useState("");
   const [category, setCategory] = useState("");
+  const [parent, setParent] = useState("");
 
   useEffect(() => {
-    Promise.all([loadCategories(), loadSubs()]);
+    Promise.all([loadCategories(), loadSub()]);
   }, []);
 
   const loadCategories = () => {
@@ -28,39 +34,26 @@ export default function SubUpdate() {
       .then((c) => setCategories(c.data))
       .catch((err) => console.log(err));
   };
-  const loadSubs = () => {
-    getSubs()
-      .then((c) => setSubs(c.data))
+  const loadSub = () => {
+    getSub(match.params.slug)
+      .then((c) => {
+        setName(c.data.name);
+        setParent(c.data.parent);
+      })
       .catch((err) => console.log(err));
-  };
-
-  const handleRemove = async (slug) => {
-    if (window.confirm(`Are you sure you want to delete ${slug}`)) {
-      setLoading(true);
-      removeSub(slug, user.token)
-        .then((res) => {
-          console.log(res.data);
-          loadSubs();
-          setLoading(false);
-          toast.error(`${res.data.deleted.name} deleted`);
-        })
-        .catch((err) => {
-          setLoading(false);
-          err.response.status === 400 && toast.error(err.response.data);
-        });
-    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(name);
     setLoading(true);
-    createSub({ name, parent: category }, user.token)
+    updateSub(match.params.slug, { name, parent }, user.token)
       .then((res) => {
         console.log(res.data);
-        loadSubs();
+        // loadSubs();
         setName("");
         toast.success(`sub category ${res.data.name} has been created`);
+        history.push("/admin/sub");
       })
       .catch((err) => {
         console.log(err.response.data);
@@ -70,8 +63,6 @@ export default function SubUpdate() {
         setLoading(false);
       });
   };
-
-  const searched = (keyword) => (c) => c.name.toLowerCase().includes(keyword);
 
   return (
     <div className="container-fluid">
@@ -91,7 +82,7 @@ export default function SubUpdate() {
             <select
               name="category"
               className="form-control"
-              onChange={(e) => setCategory(e.target.value)}
+              onChange={(e) => setParent(e.target.value)}
             >
               <option>Please select a parent category</option>
               {categories.length > 0 &&
@@ -110,9 +101,8 @@ export default function SubUpdate() {
             loading={loading}
           />
           <hr />
-          <LocalSearch keyword={keyword} setKeyword={setKeyword} />
 
-          <hr />
+          {/* <hr />
           {subs.filter(searched(keyword)).map((c) => (
             <div className="alert alert-secondary" key={c._id}>
               {c.name}{" "}
@@ -129,7 +119,7 @@ export default function SubUpdate() {
                 </span>
               </Link>
             </div>
-          ))}
+          ))} */}
         </div>
       </div>
     </div>
