@@ -50,7 +50,11 @@ export default function ProductCreate() {
   const handleSubmit = (e) => {
     e.preventDefault();
   };
-  const handleChange = (e) => {};
+  const handleChange = (e) => {
+    setValues({ ...values, [e.target.name]: e.target.value });
+    // console.log(e.target.name, "----", e.target.value);
+    console.log(values);
+  };
 
   return (
     <div className="container-fluid">
