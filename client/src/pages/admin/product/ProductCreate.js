@@ -19,13 +19,13 @@ const initialState = {
   category: "",
   categories: [],
   subs: [],
-  shipping: "",
   images: [],
   colors: ["Silver", "Gold", "Black", "White", "Brown"],
   brands: ["Apple", "Samsung", "Asus", "Lenovo", "Microsoft"],
   color: "",
   brand: "",
   shipping: "",
+  quantity: "",
 };
 
 export default function ProductCreate() {
@@ -38,16 +38,19 @@ export default function ProductCreate() {
     category,
     categories,
     subs,
-    shipping,
     images,
     colors,
     brands,
     color,
     brand,
     shipping,
+    quantity,
   } = values;
 
-  const handleSubmit = () => {};
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+  const handleChange = (e) => {};
 
   return (
     <div className="container-fluid">
@@ -65,9 +68,82 @@ export default function ProductCreate() {
               <input
                 type="text"
                 className="form-control"
-                value={values.title}
+                value={title}
                 onChange={handleChange}
+                name="title"
               />
+            </div>
+            <div className="form-group">
+              <lable>Description</lable>
+              <input
+                type="text"
+                className="form-control"
+                value={description}
+                onChange={handleChange}
+                name="description"
+              />
+            </div>
+            <div className="form-group">
+              <lable>Price</lable>
+              <input
+                type="text"
+                className="form-control"
+                value={price}
+                onChange={handleChange}
+                name="price"
+              />
+            </div>
+            <div className="form-group">
+              <lable>Shipping</lable>
+              <select
+                name="shipping"
+                className="form-control"
+                onChange={handleChange}
+              >
+                <option>Please select</option>
+                <option value="No">No</option>
+                <option value="Yes">Yes</option>
+              </select>
+            </div>
+            <div className="form-group">
+              <lable>Quantity</lable>
+              <input
+                type="text"
+                className="form-control"
+                value={quantity}
+                onChange={handleChange}
+                name="quantity"
+              />
+            </div>
+            <div className="form-group">
+              <lable>Color</lable>
+              <select
+                name="color"
+                className="form-control"
+                onChange={handleChange}
+              >
+                <option>Please select</option>
+                {colors.map((c) => (
+                  <option key={c} value={c}>
+                    {c}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="form-group">
+              <lable>Brand</lable>
+              <select
+                name="brand"
+                className="form-control"
+                onChange={handleChange}
+              >
+                <option>Please select</option>
+                {brands.map((c) => (
+                  <option key={c} value={c}>
+                    {c}
+                  </option>
+                ))}
+              </select>
             </div>
           </form>
         </div>
