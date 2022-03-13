@@ -96,6 +96,22 @@ export default function ProductCreateForm({
           ))}
         </select>
       </div>
+      <div className="form-group">
+        <label>Parent category</label>
+        <select
+          name="category"
+          className="form-control"
+          onChange={handleChange}
+        >
+          <option>Please select a parent category</option>
+          {categories.length > 0 &&
+            categories.map((c) => (
+              <option key={c._id} value={c._id}>
+                {c.name}
+              </option>
+            ))}
+        </select>
+      </div>
       <button className="btn btn-outline-info mt-3">Save</button>
     </form>
   );
