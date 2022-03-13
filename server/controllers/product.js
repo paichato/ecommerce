@@ -13,3 +13,8 @@ exports.create = async (req, res) => {
     res.status(400).json({ err: err.message });
   }
 };
+
+exports.read = async (req, res) => {
+  let products = await Product.find({});
+  res.json(products);
+};
