@@ -73,17 +73,17 @@ export default function ProductCreate() {
                 name="title"
               />
             </div>
-            <div className="form-group">
+            <div className="form-group mt-3">
               <lable>Description</lable>
               <input
                 type="text"
-                className="form-control"
+                className="form-control mt-3"
                 value={description}
                 onChange={handleChange}
                 name="description"
               />
             </div>
-            <div className="form-group">
+            <div className="form-group mt-3">
               <lable>Price</lable>
               <input
                 type="text"
@@ -93,7 +93,7 @@ export default function ProductCreate() {
                 name="price"
               />
             </div>
-            <div className="form-group">
+            <div className="form-group mt-3">
               <lable>Shipping</lable>
               <select
                 name="shipping"
@@ -105,7 +105,7 @@ export default function ProductCreate() {
                 <option value="Yes">Yes</option>
               </select>
             </div>
-            <div className="form-group">
+            <div className="form-group mt-3">
               <lable>Quantity</lable>
               <input
                 type="text"
@@ -115,7 +115,7 @@ export default function ProductCreate() {
                 name="quantity"
               />
             </div>
-            <div className="form-group">
+            <div className="form-group mt-3">
               <lable>Color</lable>
               <select
                 name="color"
@@ -130,7 +130,7 @@ export default function ProductCreate() {
                 ))}
               </select>
             </div>
-            <div className="form-group">
+            <div className="form-group mt-3">
               <lable>Brand</lable>
               <select
                 name="brand"
@@ -145,6 +145,7 @@ export default function ProductCreate() {
                 ))}
               </select>
             </div>
+            <button className="btn btn-outline-info mt-3">Save</button>
           </form>
         </div>
       </div>
