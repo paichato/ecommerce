@@ -64,6 +64,7 @@ export default function ProductCreate() {
       })
       .catch((err) => {
         console.log(err);
+        toast.error(err.response.data.err);
       });
   };
   const handleChange = (e) => {
