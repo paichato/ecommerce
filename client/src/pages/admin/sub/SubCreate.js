@@ -40,7 +40,7 @@ export default function SubCreate() {
       removeSub(slug, user.token)
         .then((res) => {
           console.log(res.data);
-          //   loadCategories();
+          loadSubs();
           setLoading(false);
           toast.error(`${res.data.deleted.name} deleted`);
         })
