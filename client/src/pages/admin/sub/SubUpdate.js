@@ -19,12 +19,9 @@ import CategoryForm from "../../../components/forms/CategoryForm";
 export default function SubUpdate({ history, match }) {
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
-  const [sub, setSub] = useState([]);
   const [categories, setCategories] = useState([]);
   const { user } = useSelector((state) => ({ ...state }));
-  const [category, setCategory] = useState("");
   const [parent, setParent] = useState("");
-  const [flParent, setFlParent] = useState("");
 
   useEffect(() => {
     Promise.all([loadCategories(), loadSub()]);
