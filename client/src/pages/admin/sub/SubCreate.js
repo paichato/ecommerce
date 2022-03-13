@@ -58,7 +58,7 @@ export default function SubCreate() {
     createSub({ name, parent: category }, user.token)
       .then((res) => {
         console.log(res.data);
-        // loadCategories();
+        loadSubs();
         setName("");
         toast.success(`sub category ${res.data.name} has been created`);
       })
