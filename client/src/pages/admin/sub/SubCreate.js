@@ -20,12 +20,17 @@ export default function SubCreate() {
   const [category, setCategory] = useState("");
 
   useEffect(() => {
-    loadCategories();
+    Promise.all([loadCategories(), loadSubs()]);
   }, []);
 
   const loadCategories = () => {
     getCategories()
       .then((c) => setCategories(c.data))
+      .catch((err) => console.log(err));
+  };
+  const loadSubs = () => {
+    getSubs()
+      .then((c) => setSubs(c.data))
       .catch((err) => console.log(err));
   };
 
@@ -108,7 +113,7 @@ export default function SubCreate() {
           <LocalSearch keyword={keyword} setKeyword={setKeyword} />
 
           <hr />
-          {categories.filter(searched(keyword)).map((c) => (
+          {subs.filter(searched(keyword)).map((c) => (
             <div className="alert alert-secondary" key={c._id}>
               {c.name}{" "}
               <span
@@ -118,7 +123,7 @@ export default function SubCreate() {
               >
                 <DeleteOutlined className="text-danger" />
               </span>{" "}
-              <Link to={`/admin/category/${c.slug}`}>
+              <Link to={`/admin/sub/${c.slug}`}>
                 <span className="btn btn-sm" style={{ float: "right" }}>
                   <EditOutlined className="text-warning" />
                 </span>
