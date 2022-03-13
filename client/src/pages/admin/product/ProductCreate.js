@@ -13,6 +13,7 @@ import CategoryForm from "../../../components/forms/CategoryForm";
 import LocalSearch from "../../../components/forms/LocalSearch";
 import { createProduct } from "../../../functions/product";
 import ProductCreateForm from "../../../components/forms/ProductCreateForm";
+import { getCategories } from "../../../functions/category";
 
 const initialState = {
   title: "",
@@ -33,6 +34,16 @@ const initialState = {
 export default function ProductCreate() {
   const [values, setValues] = useState(initialState);
   const { user } = useSelector((state) => ({ ...state }));
+
+  useEffect(() => {
+    loadCategories();
+  }, []);
+
+  const loadCategories = () => {
+    getCategories()
+      .then((c) => setValues({ ...values, categories: c.data }))
+      .catch((err) => console.log(err));
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
