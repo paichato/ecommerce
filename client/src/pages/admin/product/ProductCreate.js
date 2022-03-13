@@ -11,6 +11,7 @@ import AdminNav from "../../../components/nav/AdminNav";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import CategoryForm from "../../../components/forms/CategoryForm";
 import LocalSearch from "../../../components/forms/LocalSearch";
+import { createProduct } from "../../../functions/product";
 
 const initialState = {
   title: "",
@@ -30,6 +31,7 @@ const initialState = {
 
 export default function ProductCreate() {
   const [values, setValues] = useState(initialState);
+  const { user } = useSelector((state) => ({ ...state }));
 
   const {
     title,
@@ -49,6 +51,19 @@ export default function ProductCreate() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    // Object.values(values).every((value) => {
+    //   if (value === "" || []) {
+    //     toast.error("Fill every field");
+    //   }
+    // });
+    createProduct(values, user.token)
+      .then((res) => {
+        console.log(res.data);
+        window.alert(`${res.data.title} is created`);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
