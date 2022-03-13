@@ -60,6 +60,7 @@ export default function ProductCreate() {
       .then((res) => {
         console.log(res.data);
         window.alert(`${res.data.title} is created`);
+        window.location.reload();
       })
       .catch((err) => {
         console.log(err);
