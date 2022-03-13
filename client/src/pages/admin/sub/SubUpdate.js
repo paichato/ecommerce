@@ -24,6 +24,7 @@ export default function SubUpdate({ history, match }) {
   const { user } = useSelector((state) => ({ ...state }));
   const [category, setCategory] = useState("");
   const [parent, setParent] = useState("");
+  const [flParent, setFlParent] = useState("");
 
   useEffect(() => {
     Promise.all([loadCategories(), loadSub()]);
@@ -37,6 +38,7 @@ export default function SubUpdate({ history, match }) {
   const loadSub = () => {
     getSub(match.params.slug)
       .then((c) => {
+        console.log("c:", c.data);
         setName(c.data.name);
         setParent(c.data.parent);
       })
@@ -84,10 +86,10 @@ export default function SubUpdate({ history, match }) {
               className="form-control"
               onChange={(e) => setParent(e.target.value)}
             >
-              <option>Please select a parent category</option>
+              <option>Please select</option>
               {categories.length > 0 &&
                 categories.map((c) => (
-                  <option key={c._id} value={c._id}>
+                  <option key={c._id} value={c._id} selected={c._id === parent}>
                     {c.name}
                   </option>
                 ))}
