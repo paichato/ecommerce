@@ -34,6 +34,7 @@ const initialState = {
 export default function ProductCreate() {
   const [values, setValues] = useState(initialState);
   const [subOptions, setSubOptions] = useState([]);
+  const [showSub, setShowSub] = useState(false);
   const { user } = useSelector((state) => ({ ...state }));
 
   useEffect(() => {
@@ -78,6 +79,7 @@ export default function ProductCreate() {
       console.log("SUB DATA SERVER:", res.data);
       setSubOptions(res.data);
     });
+    setShowSub(true);
   };
 
   return (
@@ -94,7 +96,10 @@ export default function ProductCreate() {
             handleChange={handleChange}
             handleSubmit={handleSubmit}
             handleCategoryChange={handleCategoryChange}
+            subOptions={subOptions}
+            showSub={showSub}
             values={values}
+            setValues={setValues}
           />
         </div>
       </div>
