@@ -4,6 +4,7 @@ export default function ProductCreateForm({
   handleChange,
   handleSubmit,
   values,
+  handleCategoryChange,
 }) {
   const {
     title,
@@ -101,7 +102,7 @@ export default function ProductCreateForm({
         <select
           name="category"
           className="form-control"
-          onChange={handleChange}
+          onChange={handleCategoryChange}
         >
           <option>Please select a parent category</option>
           {categories.length > 0 &&

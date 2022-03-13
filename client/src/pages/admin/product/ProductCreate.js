@@ -13,7 +13,7 @@ import CategoryForm from "../../../components/forms/CategoryForm";
 import LocalSearch from "../../../components/forms/LocalSearch";
 import { createProduct } from "../../../functions/product";
 import ProductCreateForm from "../../../components/forms/ProductCreateForm";
-import { getCategories } from "../../../functions/category";
+import { getCategories, getCategorySubs } from "../../../functions/category";
 
 const initialState = {
   title: "",
@@ -33,6 +33,7 @@ const initialState = {
 
 export default function ProductCreate() {
   const [values, setValues] = useState(initialState);
+  const [subOptions, setSubOptions] = useState([]);
   const { user } = useSelector((state) => ({ ...state }));
 
   useEffect(() => {
@@ -69,6 +70,16 @@ export default function ProductCreate() {
     console.log(values);
   };
 
+  const handleCategoryChange = (e) => {
+    e.preventDefault();
+    console.log(e.target.value);
+    setValues({ ...values, category: e.target.value });
+    getCategorySubs(e.target.value).then((res) => {
+      console.log("SUB DATA SERVER:", res.data);
+      setSubOptions(res.data);
+    });
+  };
+
   return (
     <div className="container-fluid">
       <div className="row">
@@ -82,6 +93,7 @@ export default function ProductCreate() {
           <ProductCreateForm
             handleChange={handleChange}
             handleSubmit={handleSubmit}
+            handleCategoryChange={handleCategoryChange}
             values={values}
           />
         </div>
