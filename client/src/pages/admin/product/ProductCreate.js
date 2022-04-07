@@ -19,7 +19,7 @@ import { createProduct } from "../../../functions/product";
 import ProductCreateForm from "../../../components/forms/ProductCreateForm";
 import { getCategories, getCategorySubs } from "../../../functions/category";
 import FileUpload from "../../../components/forms/FileUpload";
-import { Skeleton, Spin } from "antd";
+import { Button, Result, Skeleton, Spin } from "antd";
 
 const initialState = {
   title: "",
@@ -42,6 +42,7 @@ export default function ProductCreate() {
   const [subOptions, setSubOptions] = useState([]);
   const [showSub, setShowSub] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [done, setDone] = useState(false);
   const { user } = useSelector((state) => ({ ...state }));
 
   useEffect(() => {
@@ -64,8 +65,8 @@ export default function ProductCreate() {
     createProduct(values, user.token)
       .then((res) => {
         console.log(res.data);
-        window.alert(`${res.data.title} is created`);
-        window.location.reload();
+        // window.alert(`${res.data.title} is created`);
+        setDone(true);
       })
       .catch((err) => {
         console.log(err);
@@ -91,34 +92,49 @@ export default function ProductCreate() {
 
   return (
     <div className="container-fluid">
-      <div className="row">
-        <div className="col-md-2">
-          <AdminNav />
-        </div>
+      {!done ? (
+        <div className="row ">
+          <div className=" col-md-2">
+            <AdminNav />
+          </div>
 
-        <div className="col-md-10">
-          {/* {loading ? <LoadingOutlined /> : <h4>Product create</h4>} */}
-          <h4>Product create</h4>
-          <hr />
-          <div className="p-3">
-            <FileUpload
-              loading={loading}
+          <div className="col-md-10">
+            <h4>Product create</h4>
+            <hr />
+            <div className="p-3">
+              <FileUpload
+                loading={loading}
+                values={values}
+                setValues={setValues}
+                setLoading={setLoading}
+              />
+            </div>
+            <ProductCreateForm
+              handleChange={handleChange}
+              handleSubmit={handleSubmit}
+              handleCategoryChange={handleCategoryChange}
+              subOptions={subOptions}
+              showSub={showSub}
               values={values}
               setValues={setValues}
-              setLoading={setLoading}
+              loading={loading}
             />
           </div>
-          <ProductCreateForm
-            handleChange={handleChange}
-            handleSubmit={handleSubmit}
-            handleCategoryChange={handleCategoryChange}
-            subOptions={subOptions}
-            showSub={showSub}
-            values={values}
-            setValues={setValues}
-          />
         </div>
-      </div>
+      ) : (
+        <Result
+          title="Operação executada com sucesso"
+          extra={
+            <Button
+              onClick={() => window.location.reload()}
+              type="primary"
+              key="console"
+            >
+              Voltar ao dashboard
+            </Button>
+          }
+        />
+      )}
     </div>
   );
 }

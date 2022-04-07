@@ -11,6 +11,7 @@ export default function ProductCreateForm({
   subOptions,
   showSub,
   setValues,
+  loading,
 }) {
   const {
     title,
@@ -142,7 +143,11 @@ export default function ProductCreateForm({
           </Select>
         </div>
       )}
-      <button className="btn btn-outline-info mt-3">Save</button>
+      {!loading && (
+        <button disabled={loading} className="btn btn-outline-info mt-3">
+          Save
+        </button>
+      )}
     </form>
   );
 }

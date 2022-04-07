@@ -15,6 +15,7 @@ export default function FileUpload({ values, setValues, setLoading, loading }) {
     console.log([files]);
     if (files) {
       setLoading(true);
+
       [...files].map((img) => {
         Resizer.imageFileResizer(
           img,
@@ -121,6 +122,8 @@ export default function FileUpload({ values, setValues, setLoading, loading }) {
           <label className="btn btn-primary btn-raised">
             Choose file
             <input
+              disabled={loading}
+              onChan={() => setLoading(false)}
               type="file"
               multiple
               hidden
