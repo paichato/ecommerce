@@ -1,9 +1,10 @@
+import { Avatar, message, Skeleton } from "antd";
 import axios from "axios";
 import React from "react";
 import Resizer from "react-image-file-resizer";
 import { useSelector } from "react-redux";
 
-export default function FileUpload({ values, setValues, setLoading }) {
+export default function FileUpload({ values, setValues, setLoading, loading }) {
   const { user } = useSelector((state) => ({ ...state }));
 
   const fileUploadAndResize = (e) => {
@@ -40,10 +41,12 @@ export default function FileUpload({ values, setValues, setLoading }) {
                 allUploadeFiles.push(res.data);
                 setValues({ ...values, images: allUploadeFiles });
                 setLoading(false);
+                message.success("Imagens carregadas com sucesso");
               })
               .catch((err) => {
                 console.log("IMAGE UPLOAD ERROR:", err);
                 setLoading(false);
+                message.error("Falha ao carregar imagens");
               });
           },
           "base64"
@@ -53,17 +56,35 @@ export default function FileUpload({ values, setValues, setLoading }) {
   };
 
   return (
-    <div className="row">
-      <label className="btn btn-primary btn-raised">
-        Choose file
-        <input
-          type="file"
-          multiple
-          hidden
-          accept="images/*"
-          onChange={fileUploadAndResize}
-        />
-      </label>
-    </div>
+    <>
+      <div className="row">
+        <Skeleton
+          loading={loading}
+          active
+          avatar
+          paragraph={false}
+          title={false}
+          round={false}
+        >
+          {values.images &&
+            values.images.map((image) => (
+              <Avatar key={image.public_id} size={60} src={image.url} />
+            ))}
+        </Skeleton>
+
+        <div className="row">
+          <label className="btn btn-primary btn-raised">
+            Choose file
+            <input
+              type="file"
+              multiple
+              hidden
+              accept="images/*"
+              onChange={fileUploadAndResize}
+            />
+          </label>
+        </div>
+      </div>
+    </>
   );
 }

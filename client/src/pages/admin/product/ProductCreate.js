@@ -15,6 +15,7 @@ import { createProduct } from "../../../functions/product";
 import ProductCreateForm from "../../../components/forms/ProductCreateForm";
 import { getCategories, getCategorySubs } from "../../../functions/category";
 import FileUpload from "../../../components/forms/FileUpload";
+import { Skeleton, Spin } from "antd";
 
 const initialState = {
   title: "",
@@ -96,11 +97,11 @@ export default function ProductCreate() {
           <hr />
           <div className="p-3">
             <FileUpload
+              loading={loading}
               values={values}
               setValues={setValues}
               setLoading={setLoading}
             />
-            {loading && <h4>Loading...</h4>}
           </div>
           <ProductCreateForm
             handleChange={handleChange}
