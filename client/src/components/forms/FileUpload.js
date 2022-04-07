@@ -1,4 +1,4 @@
-import { Avatar, message, Skeleton } from "antd";
+import { Avatar, Badge, message, Skeleton } from "antd";
 import axios from "axios";
 import React from "react";
 import Resizer from "react-image-file-resizer";
@@ -55,9 +55,37 @@ export default function FileUpload({ values, setValues, setLoading, loading }) {
     }
   };
 
+  const handleRemove = (public_id) => {
+    setLoading(true);
+    axios
+      .post(
+        `${process.env.REACT_APP_API}/removeimage`,
+        { public_id },
+        {
+          headers: {
+            authtoken: user ? user.token : "",
+          },
+        }
+      )
+      .then((res) => {
+        const { images } = values;
+        let filteredImages = images.filter((img) => {
+          return img.public_id !== public_id;
+        });
+        setValues({ ...values, images: filteredImages });
+        setLoading(false);
+        message.success("Imagens removida com sucesso");
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoading(false);
+        message.error("Falha ao remover imagem");
+      });
+  };
+
   return (
     <>
-      <div className="row">
+      <div>
         <Skeleton
           loading={loading}
           active
@@ -68,12 +96,19 @@ export default function FileUpload({ values, setValues, setLoading, loading }) {
         >
           {values.images &&
             values.images.map((image) => (
-              <Avatar
+              <Badge
+                count="X"
                 key={image.public_id}
-                size={100}
-                src={image.url}
-                className="m-3"
-              />
+                onClick={() => handleRemove(image.public_id)}
+                style={{ cursor: "pointer" }}
+              >
+                <Avatar
+                  size={100}
+                  src={image.url}
+                  shape="square"
+                  className="m-3"
+                />
+              </Badge>
             ))}
         </Skeleton>
 
