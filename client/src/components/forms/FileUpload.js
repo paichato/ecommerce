@@ -59,7 +59,7 @@ export default function FileUpload({ values, setValues, setLoading, loading }) {
     setLoading(true);
     axios
       .post(
-        `${process.env.REACT_APP_API}/removeimage`,
+        `${process.env.REACT_APP_API}/removeimages`,
         { public_id },
         {
           headers: {
@@ -89,7 +89,7 @@ export default function FileUpload({ values, setValues, setLoading, loading }) {
         <Skeleton
           loading={loading}
           active
-          avatar
+          avatar={{ shape: "square" }}
           paragraph={false}
           title={false}
           round={false}
@@ -101,13 +101,9 @@ export default function FileUpload({ values, setValues, setLoading, loading }) {
                 key={image.public_id}
                 onClick={() => handleRemove(image.public_id)}
                 style={{ cursor: "pointer" }}
+                className="m-3"
               >
-                <Avatar
-                  size={100}
-                  src={image.url}
-                  shape="square"
-                  className="m-3"
-                />
+                <Avatar size={100} src={image.url} shape="square" />
               </Badge>
             ))}
         </Skeleton>
