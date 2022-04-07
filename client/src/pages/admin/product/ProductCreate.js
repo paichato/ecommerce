@@ -14,6 +14,7 @@ import LocalSearch from "../../../components/forms/LocalSearch";
 import { createProduct } from "../../../functions/product";
 import ProductCreateForm from "../../../components/forms/ProductCreateForm";
 import { getCategories, getCategorySubs } from "../../../functions/category";
+import FileUpload from "../../../components/forms/FileUpload";
 
 const initialState = {
   title: "",
@@ -92,6 +93,9 @@ export default function ProductCreate() {
         <div className="col-md-10">
           <h4>Product create</h4>
           <hr />
+          <div className="p-3">
+            <FileUpload />
+          </div>
           <ProductCreateForm
             handleChange={handleChange}
             handleSubmit={handleSubmit}
