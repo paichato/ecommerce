@@ -8,7 +8,11 @@ import AdminNav from "../../../components/nav/AdminNav";
 //   getCategories,
 //   removeCategory,
 // } from "../../../functions/category";
-import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import {
+  EditOutlined,
+  DeleteOutlined,
+  LoadingOutlined,
+} from "@ant-design/icons";
 import CategoryForm from "../../../components/forms/CategoryForm";
 import LocalSearch from "../../../components/forms/LocalSearch";
 import { createProduct } from "../../../functions/product";
@@ -93,7 +97,7 @@ export default function ProductCreate() {
         </div>
 
         <div className="col-md-10">
-          <h4>Product create</h4>
+          {loading ? <LoadingOutlined /> : <h4>Product create</h4>}
           <hr />
           <div className="p-3">
             <FileUpload
