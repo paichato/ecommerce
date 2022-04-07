@@ -5,13 +5,16 @@ export default function FileUpload() {
 
   return (
     <div className="row">
-      <label>Choose file</label>
-      <input
-        type="file"
-        multiple
-        accept="images/*"
-        onChange={fileUploadAndResize}
-      />
+      <label className="btn btn-primary">
+        Choose file
+        <input
+          type="file"
+          multiple
+          hidden
+          accept="images/*"
+          onChange={fileUploadAndResize}
+        />
+      </label>
     </div>
   );
 }
