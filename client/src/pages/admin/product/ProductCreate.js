@@ -36,6 +36,7 @@ export default function ProductCreate() {
   const [values, setValues] = useState(initialState);
   const [subOptions, setSubOptions] = useState([]);
   const [showSub, setShowSub] = useState(false);
+  const [loading, setLoading] = useState(false);
   const { user } = useSelector((state) => ({ ...state }));
 
   useEffect(() => {
@@ -94,7 +95,12 @@ export default function ProductCreate() {
           <h4>Product create</h4>
           <hr />
           <div className="p-3">
-            <FileUpload />
+            <FileUpload
+              values={values}
+              setValues={setValues}
+              setLoading={setLoading}
+            />
+            {loading && <h4>Loading...</h4>}
           </div>
           <ProductCreateForm
             handleChange={handleChange}

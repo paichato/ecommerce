@@ -30,7 +30,7 @@ export default function ProductCreateForm({
   return (
     <form onSubmit={handleSubmit}>
       <div className="form-group">
-        <lable>Title</lable>
+        <label>Title</label>
         <input
           type="text"
           className="form-control"
@@ -40,7 +40,7 @@ export default function ProductCreateForm({
         />
       </div>
       <div className="form-group mt-3">
-        <lable>Description</lable>
+        <label>Description</label>
         <input
           type="text"
           className="form-control mt-3"
@@ -50,7 +50,7 @@ export default function ProductCreateForm({
         />
       </div>
       <div className="form-group mt-3">
-        <lable>Price</lable>
+        <label>Price</label>
         <input
           type="text"
           className="form-control"
@@ -60,7 +60,7 @@ export default function ProductCreateForm({
         />
       </div>
       <div className="form-group mt-3">
-        <lable>Shipping</lable>
+        <label>Shipping</label>
         <select
           name="shipping"
           className="form-control"
@@ -72,7 +72,7 @@ export default function ProductCreateForm({
         </select>
       </div>
       <div className="form-group mt-3">
-        <lable>Quantity</lable>
+        <label>Quantity</label>
         <input
           type="text"
           className="form-control"
@@ -82,7 +82,7 @@ export default function ProductCreateForm({
         />
       </div>
       <div className="form-group mt-3">
-        <lable>Color</lable>
+        <label>Color</label>
         <select name="color" className="form-control" onChange={handleChange}>
           <option>Please select</option>
           {colors.map((c) => (
@@ -93,7 +93,7 @@ export default function ProductCreateForm({
         </select>
       </div>
       <div className="form-group mt-3">
-        <lable>Brand</lable>
+        <label>Brand</label>
         <select name="brand" className="form-control" onChange={handleChange}>
           <option>Please select</option>
           {brands.map((c) => (
