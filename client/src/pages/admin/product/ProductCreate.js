@@ -97,7 +97,8 @@ export default function ProductCreate() {
         </div>
 
         <div className="col-md-10">
-          {loading ? <LoadingOutlined /> : <h4>Product create</h4>}
+          {/* {loading ? <LoadingOutlined /> : <h4>Product create</h4>} */}
+          <h4>Product create</h4>
           <hr />
           <div className="p-3">
             <FileUpload

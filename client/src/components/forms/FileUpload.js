@@ -1,3 +1,4 @@
+import { LoadingOutlined } from "@ant-design/icons";
 import { Avatar, Badge, message, Skeleton } from "antd";
 import axios from "axios";
 import React from "react";
@@ -87,7 +88,7 @@ export default function FileUpload({ values, setValues, setLoading, loading }) {
     <>
       <div>
         <Skeleton
-          loading={loading}
+          loading={!values.images && loading}
           active
           avatar={{ shape: "square" }}
           paragraph={false}
@@ -103,10 +104,18 @@ export default function FileUpload({ values, setValues, setLoading, loading }) {
                 style={{ cursor: "pointer" }}
                 className="m-3"
               >
-                <Avatar size={100} src={image.url} shape="square" />
+                <Avatar
+                  style={loading && { opacity: 0.2 }}
+                  size={100}
+                  src={image.url}
+                  shape="square"
+                />
               </Badge>
             ))}
         </Skeleton>
+        {values.images && loading && (
+          <LoadingOutlined className="p-2" style={{ fontSize: "36px" }} />
+        )}
 
         <div className="row">
           <label className="btn btn-primary btn-raised">
