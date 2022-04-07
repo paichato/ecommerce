@@ -68,7 +68,12 @@ export default function FileUpload({ values, setValues, setLoading, loading }) {
         >
           {values.images &&
             values.images.map((image) => (
-              <Avatar key={image.public_id} size={60} src={image.url} />
+              <Avatar
+                key={image.public_id}
+                size={100}
+                src={image.url}
+                className="m-3"
+              />
             ))}
         </Skeleton>
 
