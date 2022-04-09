@@ -5,8 +5,8 @@ import laptop from "../../images/computer/laptop.png";
 
 const { Meta } = Card;
 
-export default function AdminProductCard({ product }) {
-  const { title, description, images } = product;
+export default function AdminProductCard({ product, handleRemove }) {
+  const { title, description, images, slug } = product;
   const [showIcons, setShowIcons] = useState(false);
 
   return (
@@ -16,16 +16,20 @@ export default function AdminProductCard({ product }) {
         onMouseOver={() => setShowIcons(true)}
         onMouseOut={() => setShowIcons(false)}
         actions={
-          showIcons && [
+          // showIcons &&
+          [
             <EditOutlined className="text-warning" />,
-            <DeleteOutlined className="text-danger" />,
+            <DeleteOutlined
+              onClick={() => handleRemove(slug)}
+              className="text-danger"
+            />,
           ]
         }
         cover={
           <img
             src={images && images.length ? images[0].url : laptop}
             style={{ height: "150px", objectFit: "cover" }}
-            className="m-2 p-1 mb-3"
+            className=" p-1 mb-3"
           />
         }
       >

@@ -1,3 +1,5 @@
+import { ExclamationCircleOutlined } from "@ant-design/icons";
+import { Modal } from "antd";
 import React, { useEffect, useState } from "react";
 import AdminProductCard from "../../../components/cards/AdminProductCard";
 import AdminNav from "../../../components/nav/AdminNav";
@@ -10,6 +12,21 @@ export default function AllProducts() {
   useEffect(() => {
     loadAllProducts();
   }, []);
+
+  const handleRemove = (slug) => {
+    const Confirm = Modal.confirm({
+      title: "Delete?",
+      icon: <ExclamationCircleOutlined />,
+      content: `Are you sure you want to delete ${slug}`,
+      okText: "Delete",
+      cancelText: "Cancel",
+      // okButtonProps:{danger:true},
+      okType: "danger",
+      onOk: () => console.log("CONFIRM:", Confirm, slug),
+
+      // okButtonProps={{danger:true}}
+    });
+  };
 
   const loadAllProducts = async () => {
     setLoading(true);
@@ -34,7 +51,11 @@ export default function AllProducts() {
           {loading ? <h4>Loading...</h4> : <h4>All Products</h4>}
           <div className="row">
             {products.map((product) => (
-              <AdminProductCard product={product} key={product._id} />
+              <AdminProductCard
+                handleRemove={handleRemove}
+                product={product}
+                key={product._id}
+              />
             ))}
           </div>
         </div>
