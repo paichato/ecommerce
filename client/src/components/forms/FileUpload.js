@@ -123,7 +123,7 @@ export default function FileUpload({ values, setValues, setLoading, loading }) {
             Choose file
             <input
               disabled={loading}
-              onChan={() => setLoading(false)}
+              onChange={() => setLoading(false)}
               type="file"
               multiple
               hidden
