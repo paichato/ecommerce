@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import AdminNav from "../../../components/nav/AdminNav";
 // import {
@@ -21,9 +21,12 @@ import { getCategories, getCategorySubs } from "../../../functions/category";
 import FileUpload from "../../../components/forms/FileUpload";
 import { Button, Result, Skeleton, Spin } from "antd";
 
-export default function ProductUpdate() {
+export default function ProductUpdate({ match }) {
   const { user } = useSelector((state) => ({ ...state }));
   const [done, setDone] = useState(false);
+
+  let params = useParams();
+  console.log(params.slug);
 
   return (
     <div className="container-fluid">
