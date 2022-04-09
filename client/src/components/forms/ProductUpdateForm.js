@@ -12,13 +12,14 @@ export default function ProductUpdateForm({
   showSub,
   setValues,
   loading,
+  categories,
 }) {
   const {
     title,
     description,
     price,
     category,
-    categories,
+    // categories,
     subs,
     images,
     colors,
@@ -115,14 +116,16 @@ export default function ProductUpdateForm({
           ))}
         </select>
       </div>
-      {/* <div className="form-group">
+      <div className="form-group">
         <label>Parent category</label>
         <select
           name="category"
           className="form-control"
           onChange={handleCategoryChange}
         >
-          <option>Please select a parent category</option>
+          <option>
+            {category ? category.name : "Please select a parent category"}
+          </option>
           {categories.length > 0 &&
             categories.map((c) => (
               <option key={c._id} value={c._id}>
@@ -131,7 +134,7 @@ export default function ProductUpdateForm({
             ))}
         </select>
       </div>
-      {showSub && (
+      {category && (
         <div>
           <label>Sub Categories</label>
           <Select
@@ -153,7 +156,7 @@ export default function ProductUpdateForm({
             ))}
           </Select>
         </div>
-      )} */}
+      )}
       {!loading && (
         <button disabled={loading} className="btn btn-outline-info mt-3">
           Save

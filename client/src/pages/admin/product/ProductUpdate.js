@@ -43,6 +43,9 @@ export default function ProductUpdate({ match }) {
   const [done, setDone] = useState(false);
   const [values, setValues] = useState(initialState);
   const [loading, setLoading] = useState(false);
+  const [subOptions, setSubOptions] = useState([]);
+  const [showSub, setShowSub] = useState(false);
+  const [categories, setCategories] = useState([]);
 
   let params = useParams();
   //   console.log(params.slug);
@@ -50,19 +53,46 @@ export default function ProductUpdate({ match }) {
   const handleSubmit = (e) => {
     e.preventDefault();
   };
-  const handleChange = () => {
+  const handleChange = (e) => {
+    setValues({ ...values, [e.target.name]: e.target.value });
     // e.preventDefault();
   };
 
   useEffect(() => {
+    loadCategories();
     loadProduct();
   }, []);
+  useEffect(() => {
+    setValues({ ...values, category: categories });
+  }, [categories]);
 
   const loadProduct = () => {
     getProduct(params.slug).then((p) => {
       console.log("single product:", p.data);
       setValues({ ...values, ...p.data });
+      loadCategories();
     });
+  };
+
+  const loadCategories = () => {
+    getCategories()
+      .then((c) => {
+        console.log("CATEGORIES", c.data);
+        setCategories(c.data);
+        // setValues({ ...values, categories: c.data });
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const handleCategoryChange = (e) => {
+    e.preventDefault();
+    console.log(e.target.value);
+    setValues({ ...values, subs: [], category: e.target.value });
+    getCategorySubs(e.target.value).then((res) => {
+      console.log("SUB DATA SERVER:", res.data);
+      setSubOptions(res.data);
+    });
+    setShowSub(true);
   };
 
   return (
@@ -79,12 +109,13 @@ export default function ProductUpdate({ match }) {
             <ProductUpdateForm
               handleChange={handleChange}
               handleSubmit={handleSubmit}
-              // handleCategoryChange={handleCategoryChange}
-              // subOptions={subOptions}
-              // showSub={showSub}
+              handleCategoryChange={handleCategoryChange}
+              subOptions={subOptions}
+              showSub={showSub}
               values={values}
               setValues={setValues}
               loading={loading}
+              categories={categories}
             />
           </div>
         </div>
