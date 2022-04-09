@@ -1,6 +1,7 @@
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { Card } from "antd";
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import laptop from "../../images/computer/laptop.png";
 
 const { Meta } = Card;
@@ -18,7 +19,9 @@ export default function AdminProductCard({ product, handleRemove }) {
         actions={
           // showIcons &&
           [
-            <EditOutlined className="text-warning" />,
+            <Link to={`/admin/product/${slug}`}>
+              <EditOutlined className="text-warning" />
+            </Link>,
             <DeleteOutlined
               onClick={() => handleRemove(slug)}
               className="text-danger"
