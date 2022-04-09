@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import AdminProductCard from "../../components/cards/AdminProductCard";
-import AdminNav from "../../components/nav/AdminNav";
-import { getProductsByCount } from "../../functions/product";
+import AdminProductCard from "../../../components/cards/AdminProductCard";
+import AdminNav from "../../../components/nav/AdminNav";
+import { getProductsByCount } from "../../../functions/product";
 
 export default function AllProducts() {
   const [products, setProducts] = useState([]);
