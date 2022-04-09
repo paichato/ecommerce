@@ -14,7 +14,7 @@ const {
 } = require("../controllers/product");
 
 router.post("/product", authCheck, adminCheck, create);
-router.get("/products:count", listAll);
+router.get("/products/:count", listAll);
 // router.get("/categories", list);
 // router.get("/category/:slug", read);
 // router.put("/category/:slug", authCheck, adminCheck, update);
