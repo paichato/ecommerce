@@ -13,7 +13,7 @@ export default function AdminProductCard({ product }) {
           <img
             src={images && images.length ? images[0].url : ""}
             style={{ height: "150px", objectFit: "cover" }}
-            className="m-2"
+            className="m-2 p-1"
           />
         }
       >
