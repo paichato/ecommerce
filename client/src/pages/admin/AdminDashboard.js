@@ -32,9 +32,11 @@ export default function AdminDashboard() {
         </div>
         {loading ? <h4>Loading...</h4> : <h4>All Products</h4>}
         <div className="col">
-          {products.map((product) => (
-            <AdminProductCard product={product} key={product._id} />
-          ))}
+          <div className="row">
+            {products.map((product) => (
+              <AdminProductCard product={product} key={product._id} />
+            ))}
+          </div>
         </div>
       </div>
     </div>
