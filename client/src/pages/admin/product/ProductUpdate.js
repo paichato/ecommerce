@@ -23,6 +23,7 @@ import { Button, Result, Skeleton, Spin } from "antd";
 
 export default function ProductUpdate() {
   const { user } = useSelector((state) => ({ ...state }));
+  const [done, setDone] = useState(false);
 
   return (
     <div className="container-fluid">
