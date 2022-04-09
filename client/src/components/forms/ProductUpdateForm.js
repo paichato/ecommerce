@@ -63,6 +63,7 @@ export default function ProductUpdateForm({
       <div className="form-group mt-3">
         <label>Shipping</label>
         <select
+          value={shipping}
           name="shipping"
           className="form-control"
           onChange={handleChange}
@@ -84,7 +85,12 @@ export default function ProductUpdateForm({
       </div>
       <div className="form-group mt-3">
         <label>Color</label>
-        <select name="color" className="form-control" onChange={handleChange}>
+        <select
+          value={color}
+          name="color"
+          className="form-control"
+          onChange={handleChange}
+        >
           <option>Please select</option>
           {colors.map((c) => (
             <option key={c} value={c}>
@@ -95,7 +101,12 @@ export default function ProductUpdateForm({
       </div>
       <div className="form-group mt-3">
         <label>Brand</label>
-        <select name="brand" className="form-control" onChange={handleChange}>
+        <select
+          value={brand}
+          name="brand"
+          className="form-control"
+          onChange={handleChange}
+        >
           <option>Please select</option>
           {brands.map((c) => (
             <option key={c} value={c}>
