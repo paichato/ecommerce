@@ -30,8 +30,8 @@ export default function AdminDashboard() {
         <div className="col-md-2">
           <AdminNav />
         </div>
-        {loading ? <h4>Loading...</h4> : <h4>All Products</h4>}
         <div className="col">
+          {loading ? <h4>Loading...</h4> : <h4>All Products</h4>}
           <div className="row">
             {products.map((product) => (
               <AdminProductCard product={product} key={product._id} />
