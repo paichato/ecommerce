@@ -1,13 +1,16 @@
 import { ExclamationCircleOutlined } from "@ant-design/icons";
-import { Modal } from "antd";
+import { message, Modal } from "antd";
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import AdminProductCard from "../../../components/cards/AdminProductCard";
 import AdminNav from "../../../components/nav/AdminNav";
-import { getProductsByCount } from "../../../functions/product";
+import { getProductsByCount, removeProduct } from "../../../functions/product";
 
 export default function AllProducts() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const { user } = useSelector((state) => ({ ...state }));
 
   useEffect(() => {
     loadAllProducts();
@@ -22,7 +25,17 @@ export default function AllProducts() {
       cancelText: "Cancel",
       // okButtonProps:{danger:true},
       okType: "danger",
-      onOk: () => console.log("CONFIRM:", Confirm, slug),
+      onOk: () =>
+        removeProduct(slug, user.token)
+          .then((res) => {
+            console.log(res.data);
+            loadAllProducts();
+            message.success(`${res.data.title} deleted with success`);
+          })
+          .catch((err) => {
+            console.log(err);
+            err.response.status === 400 && message.error(err);
+          }),
 
       // okButtonProps={{danger:true}}
     });
