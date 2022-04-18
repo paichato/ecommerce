@@ -46,6 +46,7 @@ export default function ProductUpdate({ match }) {
   const [subOptions, setSubOptions] = useState([]);
   const [showSub, setShowSub] = useState(false);
   const [categories, setCategories] = useState([]);
+  const [arrayOfSubIds, setArrayOfSubs] = useState([]);
 
   let params = useParams();
   //   console.log(params.slug);
@@ -70,6 +71,15 @@ export default function ProductUpdate({ match }) {
     getProduct(params.slug).then((p) => {
       console.log("single product:", p.data);
       setValues({ ...values, ...p.data });
+
+      getCategorySubs(p.data.category._id).then((res) => {
+        setSubOptions(res.data);
+      });
+      let arr = [];
+      p.data.subs.map((s) => {
+        arr.push(s._id);
+      });
+      setArrayOfSubs((prev) => arr);
       loadCategories();
     });
   };
@@ -116,6 +126,8 @@ export default function ProductUpdate({ match }) {
               setValues={setValues}
               loading={loading}
               categories={categories}
+              arrayOfSubs={arrayOfSubIds}
+              setArrayOfSubs={setArrayOfSubs}
             />
           </div>
         </div>

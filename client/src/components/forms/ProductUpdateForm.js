@@ -13,6 +13,8 @@ export default function ProductUpdateForm({
   setValues,
   loading,
   categories,
+  arrayOfSubs,
+  setArrayOfSubs,
 }) {
   const {
     title,
@@ -142,10 +144,10 @@ export default function ProductUpdateForm({
           <label>Sub Categories</label>
           <Select
             // disabled={subOptions.length < 1}
-            value={subs}
+            value={arrayOfSubs}
             mode="multiple"
             style={{ width: "100%" }}
-            onChange={(value) => setValues({ ...values, subs: value })}
+            onChange={(value) => setArrayOfSubs(value)}
             placeholder={
               subOptions.length < 1
                 ? "No subs available"
