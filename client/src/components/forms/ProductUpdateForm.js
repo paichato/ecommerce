@@ -29,6 +29,9 @@ export default function ProductUpdateForm({
     shipping,
     quantity,
   } = values;
+
+  console.log("THIS IS SUBS:", subs, "THIS IS SUBOPTIONS:", subOptions);
+
   return (
     <form onSubmit={handleSubmit}>
       <div className="form-group">
@@ -138,7 +141,7 @@ export default function ProductUpdateForm({
         <div>
           <label>Sub Categories</label>
           <Select
-            disabled={subOptions.length < 1}
+            // disabled={subOptions.length < 1}
             value={subs}
             mode="multiple"
             style={{ width: "100%" }}
