@@ -47,6 +47,7 @@ export default function ProductUpdate({ match }) {
   const [showSub, setShowSub] = useState(false);
   const [categories, setCategories] = useState([]);
   const [arrayOfSubIds, setArrayOfSubs] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("");
 
   let params = useParams();
   //   console.log(params.slug);
@@ -63,9 +64,9 @@ export default function ProductUpdate({ match }) {
     loadCategories();
     loadProduct();
   }, []);
-  useEffect(() => {
-    setValues({ ...values, category: categories });
-  }, [categories]);
+  // useEffect(() => {
+  //   setValues({ ...values, category: categories });
+  // }, [categories]);
 
   const loadProduct = () => {
     getProduct(params.slug).then((p) => {
@@ -96,12 +97,23 @@ export default function ProductUpdate({ match }) {
 
   const handleCategoryChange = (e) => {
     e.preventDefault();
-    console.log(e.target.value);
-    setValues({ ...values, subs: [], category: e.target.value });
+    console.log("chamged value:", e.target.value);
+    setValues({ ...values, subs: [] });
+    console.log("old cat value:", values);
+
+    setSelectedCategory(e.target.value);
+
     getCategorySubs(e.target.value).then((res) => {
       console.log("SUB DATA SERVER:", res.data);
       setSubOptions(res.data);
     });
+    //if user clicks back tomoriginal category
+    if (values.category._id === e.target.value) {
+      console.log("same old cat", e.target.value);
+      loadProduct();
+      return;
+    }
+
     setArrayOfSubs([]);
     setShowSub(true);
   };
@@ -129,6 +141,7 @@ export default function ProductUpdate({ match }) {
               categories={categories}
               arrayOfSubs={arrayOfSubIds}
               setArrayOfSubs={setArrayOfSubs}
+              selectedCategory={selectedCategory}
             />
           </div>
         </div>

@@ -15,6 +15,7 @@ export default function ProductUpdateForm({
   categories,
   arrayOfSubs,
   setArrayOfSubs,
+  selectedCategory,
 }) {
   const {
     title,
@@ -127,10 +128,11 @@ export default function ProductUpdateForm({
           name="category"
           className="form-control"
           onChange={handleCategoryChange}
+          value={selectedCategory ? selectedCategory : category._id}
         >
-          <option>
+          {/* <option>
             {category ? category.name : "Please select a parent category"}
-          </option>
+          </option> */}
           {categories.length > 0 &&
             categories.map((c) => (
               <option key={c._id} value={c._id}>
