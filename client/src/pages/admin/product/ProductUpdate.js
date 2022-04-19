@@ -102,6 +102,7 @@ export default function ProductUpdate({ match }) {
       console.log("SUB DATA SERVER:", res.data);
       setSubOptions(res.data);
     });
+    setArrayOfSubs([]);
     setShowSub(true);
   };
 
